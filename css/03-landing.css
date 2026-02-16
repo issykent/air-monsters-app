@@ -74,3 +74,10 @@
 .create-account-image-button:active {
     transform: translateX(-50%) scale(0.95);
 }
+
+/* Create Account Info Screen */
+#create-account-info-screen {
+    background: #abe3ff;
+    width: 100vw;
+    height: 100vh;
+}

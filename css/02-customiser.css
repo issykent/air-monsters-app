@@ -1,5 +1,12 @@
 /* Character Customiser */
 
+/* Customiser Screen Background */
+#customiser-screen {
+    background: #abe3ff;
+    width: 100vw;
+    height: 100vh;
+}
+
 /* Header */
 #customiser-screen .customiser-header {
     background: #abe3ff;

@@ -1,5 +1,8 @@
 /* Character Customiser Logic */
 
+import { showScreen } from './app.js';
+import { state } from './config.js';
+
 // State for each style (each has independent customization)
 const styleStates = {
     style1: {
@@ -42,6 +45,7 @@ function initCustomiser() {
     setupEyeButtons();
     setupAccessoryButtons();
     setupNamePreview();
+    setupSaveButton();
 }
 
 // Setup carousel scroll detection
@@ -274,6 +278,39 @@ function updatePreview() {
     }
     
     console.log(`${activeStyle} updated:`, state);
+}
+
+// Setup save button
+function setupSaveButton() {
+    const saveButton = document.querySelector('.save-button');
+    
+    if (saveButton) {
+        saveButton.addEventListener('click', () => {
+            console.log('Save button clicked');
+            console.log('Current context:', state.customiserContext);
+            
+            // Check context to determine where to go
+            if (state.customiserContext === 'new-account') {
+                console.log('New account flow - going to create account info screen');
+                
+                // Save character data to state (we'll do this properly later)
+                // For now just navigate
+                
+                if (window.startLoading) {
+                    window.startLoading('create-account-info-screen');
+                } else {
+                    showScreen('create-account-info-screen');
+                }
+            } else if (state.customiserContext === 'editing') {
+                console.log('Editing flow - going back to user area');
+                // TODO: Implement later
+                showScreen('user-window-screen');
+            } else {
+                console.log('No context set - defaulting to home screen');
+                showScreen('home-screen');
+            }
+        });
+    }
 }
 
 // Initialize when ready

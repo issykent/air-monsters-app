@@ -1,6 +1,7 @@
 /* Landing & Login Screen Logic */
 
 import { showScreen } from './app.js';
+import { state } from './config.js';
 
 function initLanding() {
     console.log('Landing initialized');
@@ -19,15 +20,15 @@ function setupLandingButtons() {
     
     if (createAccountBtn) {
         createAccountBtn.addEventListener('click', () => {
-            console.log('🔴 CREATE ACCOUNT BUTTON CLICKED!');
-            console.log('🔴 window.startLoading exists?', typeof window.startLoading);
+            console.log('Create account clicked');
+            
+            // Set context so customiser knows this is a new account
+            state.customiserContext = 'new-account';
+            console.log('Context set to: new-account');
             
             if (window.startLoading) {
-                console.log('🔴 Calling window.startLoading("customiser-screen")');
                 window.startLoading('customiser-screen');
-                console.log('🔴 window.startLoading called');
             } else {
-                console.log('🔴 window.startLoading NOT FOUND - using fallback');
                 showScreen('customiser-screen');
             }
         });
