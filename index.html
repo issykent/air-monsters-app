@@ -1,0 +1,202 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Air Monsters</title>
+
+    <!-- Google Font - Chango -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Chango&display=swap" rel="stylesheet">
+    
+    <link rel="stylesheet" href="css/00-global.css">
+    <link rel="stylesheet" href="css/01-loading.css">
+    <link rel="stylesheet" href="css/02-customiser.css">
+    <link rel="stylesheet" href="css/03-landing.css">
+    <link rel="stylesheet" href="css/03-home.css">
+    <link rel="stylesheet" href="css/04-map.css">
+    <link rel="stylesheet" href="css/05-ar.css">
+    <link rel="stylesheet" href="css/06-user-window.css">
+</head>
+<body>
+    <div id="loading-screen" class="screen active">
+        <div class="screen-content">
+            <img src="css/images/airmonsterswordmark.png" alt="Air Monsters" class="wordmark">
+            
+            <!-- Loading Bar -->
+            <div class="loading-bar-container">
+                <div class="loading-bar-fill"></div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Landing Screen (Login/Create Account) -->
+    <div id="landing-screen" class="screen">
+        <div class="landing-backdrop">
+            <img src="css/images/landing/backdrop.png" alt="Landing backdrop" class="backdrop-image">
+            <button class="login-image-button" id="login-button">
+                <img src="css/images/landing/login.png" alt="Login">
+            </button>
+            <button class="create-account-image-button" id="create-account-button">
+                <img src="css/images/landing/createaccount.png" alt="Create an account">
+            </button>
+        </div>
+    </div>
+
+    <!-- Login Form Screen -->
+    <div id="login-form-screen" class="screen">
+        <div class="screen-content">
+            <img src="css/images/airmonsterswordmark.png" alt="Air Monsters" class="landing-logo">
+            
+            <div class="login-card">
+                <input type="text" class="username-input" placeholder="Enter username..." maxlength="20">
+                
+                <p class="password-label">Enter your password:</p>
+                <div class="password-circles">
+                    <input type="password" class="password-circle" maxlength="1" pattern="[0-9]">
+                    <input type="password" class="password-circle" maxlength="1" pattern="[0-9]">
+                    <input type="password" class="password-circle" maxlength="1" pattern="[0-9]">
+                    <input type="password" class="password-circle" maxlength="1" pattern="[0-9]">
+                </div>
+                
+                <button class="login-submit-button" id="login-submit-button">Log In!</button>
+            </div>
+        </div>
+    </div>
+
+    <div id="customiser-screen" class="screen">
+        <div class="customiser-header">
+            <img src="css/images/airmonsterswordmark.png" alt="Air Monsters" class="header-logo">
+        </div>
+        
+       <!-- Preview Area -->
+        <div class="preview-area">
+            <img id="title-image" src="css/images/createyourcharacter.png" alt="Create your character!" class="preview-title">
+            <div id="character-name-display" class="character-name-preview" style="display: none;"></div>
+            
+            <!-- Character Carousel -->
+            <div class="character-carousel">
+                <!-- Style 1 -->
+                <div class="character-preview" data-style="style1">
+                    <img class="character-layer character-body" src="css/images/style1/style1-white.png" alt="Character Body">
+                    <img class="character-layer character-eyes" src="css/images/style1/style1-eyes1.png" alt="Character Eyes">
+                    <img class="character-layer character-accessory" src="" alt="Character Accessory" style="display: none;">
+                </div>
+                
+                <!-- Style 2 -->
+                <div class="character-preview" data-style="style2">
+                    <img class="character-layer character-body" src="css/images/style2/style2-white.png" alt="Character Body">
+                    <img class="character-layer character-eyes" src="css/images/style2/style2-eyes1.png" alt="Character Eyes">
+                    <img class="character-layer character-accessory" src="" alt="Character Accessory" style="display: none;">
+                </div>
+                
+                <!-- Style 3 (Tornado) -->
+                <div class="character-preview" data-style="style3">
+                    <img class="character-layer character-body" src="css/images/style3/style3-white.png" alt="Character Body">
+                    <img class="character-layer character-accessory" src="" alt="Character Accessory" style="display: none;">
+                    <img class="character-layer character-eyes" src="css/images/style3/style3-eyes1.png" alt="Character Eyes">
+                </div>
+            </div>
+            
+            <img src="css/images/shadowshape.png" alt="" class="character-shadow">
+        </div>
+        
+        <div class="options-area">
+
+            <!-- Body Color Picker -->
+            <div class="colour-picker-container">
+                <button class="colour-circle" style="background: #323030;" data-color="#323030"></button>
+                <button class="colour-circle" style="background: #6b4e89;" data-color="#6b4e89"></button>
+                <button class="colour-circle" style="background: #bc7db5;" data-color="#bc7db5"></button>
+                <button class="colour-circle" style="background: #67d3d6;" data-color="#67d3d6"></button>
+                <button class="colour-circle" style="background: #256a95;" data-color="#256a95"></button>
+                <button class="colour-circle" style="background: #7c0912;" data-color="#7c0912"></button>
+                <button class="colour-circle" style="background: #d3ca5e;" data-color="#d3ca5e"></button>
+                <button class="colour-circle" style="background: #7ec47e;" data-color="#7ec47e"></button>
+                <button class="colour-circle" style="background: #507a44;" data-color="#507a44"></button>
+                <button class="colour-circle" style="background: #fffcee;" data-color="#fffcee"></button>
+            </div>
+        
+            <!-- Eye Picker -->
+            <div class="eye-picker-container">
+                <button class="eye-option" data-eye="1">
+                    <img src="css/images/eyecolour1.png" alt="Eye 1">
+                </button>
+                <button class="eye-option" data-eye="2">
+                    <img src="css/images/eyecolour2.png" alt="Eye 2">
+                </button>
+                <button class="eye-option" data-eye="3">
+                    <img src="css/images/eyecolour3.png" alt="Eye 3">
+                </button>
+                <button class="eye-option" data-eye="4">
+                    <img src="css/images/eyecolour4.png" alt="Eye 4">
+                </button>
+            </div>
+            
+            <!-- Accessory Picker -->
+            <div class="accessory-picker-container">
+                <button class="accessory-option" data-accessory="flower">
+                    <img src="css/images/floweraccessory.png" alt="Flower Crown">
+                </button>
+                <button class="accessory-option" data-accessory="headphones">
+                    <img src="css/images/headphonesaccessory.png" alt="Headphones">
+                </button>
+                <button class="accessory-option" data-accessory="propeller">
+                    <img src="css/images/propellerhataccessory.png" alt="Propeller Hat">
+                </button>
+                <button class="accessory-option" data-accessory="bow">
+                    <img src="css/images/bowaccessory.png" alt="Bow">
+                </button>
+                <button class="accessory-option" data-accessory="bowler">
+                    <img src="css/images/bowlerhataccessory.png" alt="Bowler Hat">
+                </button>
+                <button class="accessory-option" data-accessory="halo">
+                    <img src="css/images/haloaccessory.png" alt="Halo">
+                </button>
+            </div>           
+
+            <!-- Name input text box -->
+            <div class="name-input-container">
+                <input 
+                    type="text" 
+                    class="name-input" 
+                    placeholder="Name your character..." 
+                    maxlength="20"
+                >
+            </div>
+
+            <!-- Save character button -->
+            <button class="save-button">
+                <img src="css/images/savecharacterinput.png" alt="Save & Start Hunting">
+            </button>
+        </div>
+    </div>
+
+    <div id="home-screen" class="screen">
+        <div class="screen-content"><h1>Home Screen</h1></div>
+    </div>
+
+    <div id="map-screen" class="screen">
+        <div class="screen-content"><h1>Map Screen</h1></div>
+    </div>
+
+    <div id="ar-screen" class="screen">
+        <div class="screen-content"><h1>AR Screen</h1></div>
+    </div>
+
+    <div id="user-window-screen" class="screen">
+        <div class="screen-content"><h1>User Window</h1></div>
+    </div>
+
+    <script type="module" src="js/config.js"></script>
+    <script type="module" src="js/app.js"></script>
+    <script type="module" src="js/loading.js"></script>
+    <script type="module" src="js/landing.js"></script>
+    <script type="module" src="js/customiser.js"></script>
+    <script type="module" src="js/home.js"></script>
+    <script type="module" src="js/map.js"></script>
+    <script type="module" src="js/ar.js"></script>
+    <script type="module" src="js/user-window.js"></script>
+</body>
+</html>

@@ -1,0 +1,98 @@
+/* Loading Screen */
+
+#loading-screen {
+    background: #abe3ff;
+    width: 100vw;
+    height: 100vh;
+    position: fixed;
+    top: 0;
+    left: 0;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+#loading-screen .screen-content {
+    position: fixed;
+    top: 30vh;
+    left: 50%;
+    transform: translateX(-50%);
+    width: 90vw;
+    padding: 0;
+    margin: 0;
+}
+
+#loading-screen .wordmark {
+    width: 80vw;
+    height: auto;
+    display: block;
+    margin: 0 auto;
+}
+
+/* Animated Loading Bar */
+.loading-bar-container {
+    width: 30vh;
+    height: 3vh;
+    background: rgba(255, 255, 255, 0.3);
+    border-radius: 25px;
+    overflow: hidden;
+    box-shadow: 
+        0 4px 15px rgba(0, 0, 0, 0.1),
+        inset 0 2px 5px rgba(0, 0, 0, 0.1);
+    position: relative;
+    margin: 40px auto 0;
+}
+
+.loading-bar-fill {
+    width: 100%;
+    height: 100%;
+    background: linear-gradient(
+        45deg,
+        #8B5FBF 25%,
+        #6B4FA0 25%,
+        #6B4FA0 50%,
+        #8B5FBF 50%,
+        #8B5FBF 75%,
+        #6B4FA0 75%,
+        #6B4FA0
+    );
+    background-size: 3vh 3vh;
+    animation: candyCaneSlide 1s linear infinite;
+    border-radius: 25px;
+    box-shadow: inset 0 2px 8px rgba(255, 255, 255, 0.3);
+    position: relative;
+}
+
+@keyframes candyCaneSlide {
+    0% {
+        background-position: 0 0;
+    }
+    100% {
+        background-position: 3vh 3vh;
+    }
+}
+
+.loading-bar-fill::after {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: -100%;
+    width: 100%;
+    height: 100%;
+    background: linear-gradient(
+        90deg,
+        transparent,
+        rgba(255, 255, 255, 0.3),
+        transparent
+    );
+    animation: shimmer 2s infinite;
+}
+
+@keyframes shimmer {
+    0% {
+        left: -100%;
+    }
+    100% {
+        left: 100%;
+    }
+}

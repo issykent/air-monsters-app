@@ -1,0 +1,329 @@
+/* Character Customiser */
+
+/* Header */
+#customiser-screen .customiser-header {
+    background: #abe3ff;
+    width: 100vw;
+    height: 10vh;
+    position: fixed;
+    top: 0;
+    left: 0;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+#customiser-screen .header-logo {
+    height: 8vh;
+    width: auto;
+}
+
+/* Preview Area */
+#customiser-screen .preview-area {
+    background: #e1feff;
+    width: 100vw;
+    height: 55vh;
+    position: fixed;
+    top: 10vh;
+    left: 0;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    z-index: 10;
+}
+
+/* Character Carousel Container */
+.character-carousel {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    display: flex;
+    gap: 2vw;
+    overflow-x: auto;
+    scroll-behavior: smooth;
+    scroll-snap-type: x mandatory;
+    scroll-padding: 15vw;
+    width: 100vw;
+    height: 60vh;
+    scrollbar-width: none; /* Firefox */
+    -ms-overflow-style: none; /* IE/Edge */
+    padding: 0 8vw; /* Creates space for peeking characters */
+}
+
+.character-carousel::-webkit-scrollbar {
+    display: none; /* Chrome/Safari */
+}
+
+/* Individual Character Preview */
+.character-preview {
+    position: relative;
+    min-width: 70vw; /* Changed from 100vw - allows peeking */
+    height: 60vh;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    scroll-snap-align: center;
+    transition: transform 0.3s ease, opacity 0.3s ease;
+}
+
+/* Character Layers */
+.character-layer {
+    position: absolute;
+    height: 35vh;
+    width: auto;
+    top: 50%;
+    left: 50%;
+    transform: translate(-45%, -45%);
+}
+
+/* Inactive characters (not centered) - faded and smaller */
+.character-preview:not(.active) {
+    opacity: 0.4;
+    transform: scale(0.75);
+}
+
+/* Active character (centered) */
+.character-preview.active {
+    opacity: 1;
+    transform: scale(1);
+}
+
+/* Preview Area Content */
+#customiser-screen .preview-title {
+    width: 70vw;
+    height: auto;
+    position: absolute;
+    top: 4vh;
+    left: 50%;
+    transform: translateX(-50%);
+}
+
+#customiser-screen .character-shadow {
+    width: 30vw;
+    height: auto;
+    position: absolute;
+    bottom: 2vh;
+    left: 50%;
+    transform: translateX(-50%);
+}
+
+/* Character Name Preview */
+.character-name-preview {
+    position: absolute;
+    top: 4vh;
+    left: 50%;
+    transform: translateX(-50%);
+    font-family: 'Chango', cursive;
+    font-size: 30pt;
+    color: #2C3E50;
+    text-align: center;
+    z-index: 15;
+    white-space: nowrap;  /* Never line break */
+    max-width: 80vw;      /* Max 80% of viewport width */
+}
+
+/* Customization Options Area (Scrollable) */
+#customiser-screen .options-area {
+    position: absolute;
+    top: 60vh;
+    left: 0;
+    width: 100vw;
+    height: 40vh;
+    overflow-y: auto;
+    padding: 7vh 0;
+    z-index: 5; 
+}
+
+/* Colour picker */
+#customiser-screen .colour-picker-container {
+    background: #3cb1ba;
+    border-radius: 20px;
+    position: relative;
+    margin: 0 auto 2vh;
+    width: 92vw;
+    height: 20vh;
+    display: grid;
+    grid-template-columns: repeat(5, 1fr);
+    grid-template-rows: repeat(2, 1fr);
+    gap: 1vh;
+    padding: 2vh 3vw;
+    align-content: center;
+    justify-content: center;
+}
+
+#customiser-screen .colour-circle {
+    width: 100%;
+    aspect-ratio: 1 / 1;
+    border-radius: 50%;
+    border: 3px solid rgba(255, 255, 255, 0.5);
+    cursor: pointer;
+    transition: all 0.2s ease;
+}
+
+#customiser-screen .colour-circle:active {
+    transform: scale(0.95);
+}
+
+#customiser-screen .colour-circle.selected {
+    border-color: white;
+    transform: scale(1.1);
+}
+
+/* Eye Picker Container */
+#customiser-screen .eye-picker-container {
+    background: #3cb1ba;
+    border-radius: 20px;
+    position: relative;  
+    margin: 0 auto 1vh;
+    width: 92vw;
+    height: 10vh;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 3vw;
+    padding: 0 3vw;
+}
+
+#customiser-screen .eye-option {
+    height: 80%;
+    width: auto;
+    border: 3px solid transparent;
+    border-radius: 50%;
+    cursor: pointer;
+    transition: all 0.2s ease;
+    background: transparent;
+    padding: 0;
+    position: relative;
+}
+
+#customiser-screen .eye-option img {
+    height: 100%;
+    width: auto;
+    display: block;
+    position: relative;
+    left: 0.5vw;
+}
+
+#customiser-screen .eye-option:active {
+    transform: scale(0.95);
+}
+
+#customiser-screen .eye-option.selected {
+    border-color: white;
+    transform: scale(1.1);
+}
+
+/* Accessory Grid */
+#customiser-screen .accessory-picker-container {
+    background: #3cb1ba;
+    border-radius: 20px;
+    position: relative;
+    margin: 0 auto 2vh;
+    width: 92vw;
+    height: 30vh;
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    grid-template-rows: repeat(2, 1fr);
+    gap: 1vh;
+    padding: 2vh 8.5vw;
+    align-content: center;
+    justify-content: center;
+}
+
+#customiser-screen .accessory-option {
+    width: 100%;
+    aspect-ratio: 1 / 1;
+    border: 3px solid rgba(255, 255, 255, 0.5);
+    border-radius: 15px;
+    cursor: pointer;
+    transition: all 0.2s ease;
+    background: rgba(255, 255, 255, 0.2);
+    padding: 1vh;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+#customiser-screen .accessory-option img {
+    max-width: 85%;
+    max-height: 85%;
+    object-fit: contain;
+}
+
+#customiser-screen .accessory-option:active {
+    transform: scale(0.95);
+}
+
+#customiser-screen .accessory-option.selected {
+    border-color: white;
+    transform: scale(1.05);
+    background: rgba(255, 255, 255, 0.4);
+}
+
+/* Name Input Container */
+#customiser-screen .name-input-container {
+    background: #3cb1ba;
+    border-radius: 20px;
+    position: relative;
+    margin: 0 auto 3vh;
+    width: 92vw;
+    height: 10vh;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 0 3vw;
+}
+
+#customiser-screen .name-input {
+    width: 100%;
+    height: 70%;
+    border: none;
+    border-radius: 15px;
+    background: rgba(225, 254, 255, 0.9);
+    font-family: 'Helvetica', 'Arial', sans-serif;
+    font-weight: bold;
+    font-size: 4vw;
+    text-align: center;
+    padding: 0 2vw;
+    outline: none;
+}
+
+#customiser-screen .name-input::placeholder {
+    color: rgba(0, 0, 0, 0.4);
+    font-family: 'Helvetica', 'Arial', sans-serif;
+    font-weight: bold;
+}
+
+#customiser-screen .name-input:focus {
+    background: white;
+    box-shadow: 0 0 0 3px rgba(255, 255, 255, 0.5);
+}
+
+/* Save Button */
+#customiser-screen .save-button {
+    width: 50vw;
+    height: auto;
+    display: block;
+    margin: 0 auto 3vh;
+    border: none;
+    background: transparent;
+    padding: 0;
+    padding-bottom: 5vh;
+    cursor: pointer;
+    transition: transform 0.2s ease;
+}
+
+#customiser-screen .save-button img {
+    width: 100%;
+    height: auto;
+    display: block;
+}
+
+#customiser-screen .save-button:hover {
+    transform: scale(1.05);
+}
+
+#customiser-screen .save-button:active {
+    transform: scale(0.95);
+}

@@ -1,0 +1,76 @@
+/* Landing Screen */
+#landing-screen {
+    background: #abe3ff;
+    width: 100vw;
+    height: 100vh;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+/* Backdrop Container */
+.landing-backdrop {
+    position: relative;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+/* Backdrop Image */
+.backdrop-image {
+    width: auto;
+    height: auto;
+    max-width: 90vw;
+    max-height: 90vh;
+    display: block;
+}
+
+/* Login Button */
+.login-image-button {
+    position: absolute;
+    top: 52%; /* 40% from backdrop top */
+    left: 50%;
+    transform: translateX(-50%);
+    width: 80%; /* 80% of backdrop width */
+    height: auto;
+    background: transparent;
+    border: none;
+    padding: 0;
+    cursor: pointer;
+    transition: transform 0.2s ease;
+}
+
+.login-image-button img {
+    width: 100%;
+    height: auto;
+    display: block;
+}
+
+.login-image-button:active {
+    transform: translateX(-50%) scale(0.95);
+}
+
+/* Create Account Button */
+.create-account-image-button {
+    position: absolute;
+    top: calc(50% + 5% + 10vh); /* 40% (login position) + 10% gap + estimated login height */
+    left: 50%;
+    transform: translateX(-50%);
+    width: 75%; /* 60% of backdrop width */
+    height: auto;
+    background: transparent;
+    border: none;
+    padding: 0;
+    cursor: pointer;
+    transition: transform 0.2s ease;
+}
+
+.create-account-image-button img {
+    width: 100%;
+    height: auto;
+    display: block;
+}
+
+.create-account-image-button:active {
+    transform: translateX(-50%) scale(0.95);
+}
