@@ -3,5 +3,6 @@ export const state = {
     currentScreen: 'loading',
     guardian: null,
     collection: [],
-    customiserContext: null  // Track where user came from
+    customiserContext: null,
+    selectedGuardian: null  // Add this - stores the chosen character
 };

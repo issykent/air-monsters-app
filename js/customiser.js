@@ -288,13 +288,23 @@ function setupSaveButton() {
         saveButton.addEventListener('click', () => {
             console.log('Save button clicked');
             console.log('Current context:', state.customiserContext);
+            console.log('Active style:', activeStyle);
+            
+            // Capture the active character's data
+            const activeCharacter = styleStates[activeStyle];
+            state.selectedGuardian = {
+                style: activeStyle,
+                color: activeCharacter.color,
+                eyes: activeCharacter.eyes,
+                accessory: activeCharacter.accessory,
+                name: activeCharacter.characterName
+            };
+            
+            console.log('Saved guardian:', state.selectedGuardian);
             
             // Check context to determine where to go
             if (state.customiserContext === 'new-account') {
                 console.log('New account flow - going to create account info screen');
-                
-                // Save character data to state (we'll do this properly later)
-                // For now just navigate
                 
                 if (window.startLoading) {
                     window.startLoading('create-account-info-screen');
@@ -303,7 +313,6 @@ function setupSaveButton() {
                 }
             } else if (state.customiserContext === 'editing') {
                 console.log('Editing flow - going back to user area');
-                // TODO: Implement later
                 showScreen('user-window-screen');
             } else {
                 console.log('No context set - defaulting to home screen');

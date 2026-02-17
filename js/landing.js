@@ -7,6 +7,23 @@ function initLanding() {
     console.log('Landing initialized');
     setupLandingButtons();
     setupLoginForm();
+    monitorCreateAccountScreen();  // Changed from renderAvatar()
+}
+
+// Monitor when create-account-info-screen becomes visible
+function monitorCreateAccountScreen() {
+    const observer = new MutationObserver(() => {
+        const screen = document.getElementById('create-account-info-screen');
+        if (screen && screen.classList.contains('active')) {
+            console.log('🎨 Create account screen is now active!');
+            renderAvatar();
+        }
+    });
+    
+    // Watch for class changes on all screens
+    document.querySelectorAll('.screen').forEach(screen => {
+        observer.observe(screen, { attributes: true, attributeFilter: ['class'] });
+    });
 }
 
 // Setup landing screen buttons
@@ -16,13 +33,11 @@ function setupLandingButtons() {
     
     console.log('🔵 Create account button found:', !!createAccountBtn);
     console.log('🔵 Login button found:', !!loginBtn);
-    console.log('🔵 Create account button element:', createAccountBtn);
     
     if (createAccountBtn) {
         createAccountBtn.addEventListener('click', () => {
             console.log('Create account clicked');
             
-            // Set context so customiser knows this is a new account
             state.customiserContext = 'new-account';
             console.log('Context set to: new-account');
             
@@ -75,6 +90,78 @@ function setupLoginForm() {
             alert('Login functionality coming soon! For now, click "Create an account" to build your character.');
         });
     }
+}
+
+// Render the character avatar in the profile circle
+function renderAvatar() {
+    console.log('🎨 renderAvatar() called');
+    console.log('🎨 state.selectedGuardian:', state.selectedGuardian);
+    
+    const avatarCircle = document.querySelector('.avatar-circle');
+    console.log('🎨 Avatar circle element:', avatarCircle);
+    
+    if (!avatarCircle) {
+        console.log('❌ No avatar circle found!');
+        return;
+    }
+    
+    if (!state.selectedGuardian) {
+        console.log('⚠️ No selected guardian yet - circle will stay white');
+        return;
+    }
+    
+    const guardian = state.selectedGuardian;
+    console.log('✅ Rendering avatar for:', guardian);
+    
+    // Clear existing content
+    avatarCircle.innerHTML = '';
+    
+    // Create image layers based on style
+    if (guardian.style === 'style3') {
+        // Style 3 (Tornado): Body → Accessory → Eyes
+        const bodyImg = document.createElement('img');
+        bodyImg.src = `css/images/${guardian.style}/${guardian.style}-${guardian.color}.png`;
+        bodyImg.className = 'avatar-layer';
+        console.log('🎨 Adding body:', bodyImg.src);
+        avatarCircle.appendChild(bodyImg);
+        
+        if (guardian.accessory) {
+            const accessoryImg = document.createElement('img');
+            accessoryImg.src = `css/images/${guardian.style}/${guardian.style}-${guardian.accessory}.png`;
+            accessoryImg.className = 'avatar-layer';
+            console.log('🎨 Adding accessory:', accessoryImg.src);
+            avatarCircle.appendChild(accessoryImg);
+        }
+        
+        const eyesImg = document.createElement('img');
+        eyesImg.src = `css/images/${guardian.style}/${guardian.style}-${guardian.eyes}.png`;
+        eyesImg.className = 'avatar-layer';
+        console.log('🎨 Adding eyes:', eyesImg.src);
+        avatarCircle.appendChild(eyesImg);
+    } else {
+        // Style 1 & 2: Body → Eyes → Accessory
+        const bodyImg = document.createElement('img');
+        bodyImg.src = `css/images/${guardian.style}/${guardian.style}-${guardian.color}.png`;
+        bodyImg.className = 'avatar-layer';
+        console.log('🎨 Adding body:', bodyImg.src);
+        avatarCircle.appendChild(bodyImg);
+        
+        const eyesImg = document.createElement('img');
+        eyesImg.src = `css/images/${guardian.style}/${guardian.style}-${guardian.eyes}.png`;
+        eyesImg.className = 'avatar-layer';
+        console.log('🎨 Adding eyes:', eyesImg.src);
+        avatarCircle.appendChild(eyesImg);
+        
+        if (guardian.accessory) {
+            const accessoryImg = document.createElement('img');
+            accessoryImg.src = `css/images/${guardian.style}/${guardian.style}-${guardian.accessory}.png`;
+            accessoryImg.className = 'avatar-layer';
+            console.log('🎨 Adding accessory:', accessoryImg.src);
+            avatarCircle.appendChild(accessoryImg);
+        }
+    }
+    
+    console.log('✅ Avatar rendered! Circle children:', avatarCircle.children.length);
 }
 
 // Initialize when ready

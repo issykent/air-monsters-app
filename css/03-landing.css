@@ -121,7 +121,7 @@
     width: 90vw;
     height: auto;
     position: absolute;
-    top: -25vh;
+    top: -35vh;
     left: 50%;
     transform: translate(-50%, 0);
 }
@@ -133,16 +133,27 @@
     border-radius: 50%;
     background: white;
     position: absolute;
-    top: -23.5vh;
+    top: -33.5vh;
     left: 51%;
     transform: translate(-50%, 0);
     z-index: 10;
+    overflow: hidden;  /* Keep this */
+}
+
+/* Avatar image layers */
+#create-account-info-screen .avatar-layer {
+    position: absolute;
+    width: 80%;
+    height: 80%;
+    top: 10%;
+    left: 10%;
+    object-fit: contain;
 }
 
 /* Username label */
 #create-account-info-screen .username-label {
     position: absolute;
-    top: -2vh;
+    top: -12vh;
     left: 50%;
     transform: translateX(-50%);
     font-family: 'Chango', cursive;
@@ -156,7 +167,7 @@
 /* Username input */
 #create-account-info-screen .username-input-container {
     position: absolute;
-    top: 2.5vh;
+    top: -8.5vh;
     left: 50%;
     transform: translateX(-50%);
     width: 64vw;
@@ -191,7 +202,7 @@
 /* Password label */
 #create-account-info-screen .password-label {
     position: absolute;
-    top: 13vh;
+    top: 3vh;
     left: 50%;
     transform: translateX(-50%);
     font-family: 'Chango', cursive;
@@ -205,7 +216,7 @@
 /* Password input containers */
 #create-account-info-screen .password-inputs {
     position: absolute;
-    top: -2vh;
+    top: -12vh;
     left: 50%;
     transform: translate(-50%, 0);
     width: 64vw;
@@ -235,7 +246,7 @@
 
 #create-account-info-screen .create-account-button {
     position: fixed;  /* Fixed to viewport */
-    bottom: 5vh;
+    bottom: 4vh;
     left: 50%;
     transform: translateX(-50%);
     width: 70vw;
