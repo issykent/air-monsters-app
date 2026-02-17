@@ -80,4 +80,180 @@
     background: #abe3ff;
     width: 100vw;
     height: 100vh;
+    position: relative;
+    overflow: hidden;
+}
+
+/* Header with wordmark */
+#create-account-info-screen .screen-header {
+    background: #abe3ff;
+    width: 100vw;
+    height: 10vh;
+    position: fixed;
+    top: 0;
+    left: 0;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    z-index: 100;
+}
+
+#create-account-info-screen .header-logo {
+    height: 8vh;
+    width: auto;
+}
+
+/* Main content container */
+#create-account-info-screen .account-content {
+    position: relative;
+    width: 100vw;
+    height: 100vh;  /* Changed from min-height */
+    padding-top: 0vh;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    overflow: hidden;  /* Add this */
+}
+
+/* Background card image */
+#create-account-info-screen .account-backdrop {
+    width: 90vw;
+    height: auto;
+    position: absolute;
+    top: -25vh;
+    left: 50%;
+    transform: translate(-50%, 0);
+}
+
+/* Circle avatar placeholder */
+#create-account-info-screen .avatar-circle {
+    width: 34vw;
+    height: 34vw;
+    border-radius: 50%;
+    background: white;
+    position: absolute;
+    top: -23.5vh;
+    left: 51%;
+    transform: translate(-50%, 0);
+    z-index: 10;
+}
+
+/* Username label */
+#create-account-info-screen .username-label {
+    position: absolute;
+    top: -2vh;
+    left: 50%;
+    transform: translateX(-50%);
+    font-family: 'Chango', cursive;
+    font-size: 12pt;
+    color: #2C3E50;
+    margin: 0;
+    text-align: center;
+    white-space: nowrap;
+}
+
+/* Username input */
+#create-account-info-screen .username-input-container {
+    position: absolute;
+    top: 2.5vh;
+    left: 50%;
+    transform: translateX(-50%);
+    width: 64vw;
+    height: 8vh;
+    background: #a9deea;
+    border-radius: 50px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 0 2vw;
+}
+
+#create-account-info-screen .username-input {
+    width: 100%;
+    height: 70%;
+    border: none;
+    border-radius: 15px;
+    background: rgba(225, 254, 255, 0.9);
+    font-family: 'Helvetica', 'Arial', sans-serif;
+    font-weight: bold;
+    font-size: 4vw;
+    text-align: center;
+    padding: 0 2vw;
+    outline: none;
+}
+
+#create-account-info-screen .username-input:focus {
+    background: white;
+    box-shadow: 0 0 0 3px rgba(255, 255, 255, 0.5);
+}
+
+/* Password label */
+#create-account-info-screen .password-label {
+    position: absolute;
+    top: 13vh;
+    left: 50%;
+    transform: translateX(-50%);
+    font-family: 'Chango', cursive;
+    font-size: 12pt;
+    color: #2C3E50;
+    margin: 0;
+    text-align: center;
+    white-space: nowrap;
+}
+
+/* Password input containers */
+#create-account-info-screen .password-inputs {
+    position: absolute;
+    top: -2vh;
+    left: 50%;
+    transform: translate(-50%, 0);
+    width: 64vw;
+    height: 48vh;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+#create-account-info-screen .password-digit {
+    width: 14vw;
+    height: 10vh;
+    background: #a9deea;
+    border-radius: 15px;
+    border: none;
+    font-family: 'Chango', cursive;
+    font-size: 40pt;
+    text-align: center;
+    color: #2C3E50;
+    outline: none;
+}
+
+#create-account-info-screen .password-digit:focus {
+    background: #8fceda;
+    box-shadow: 0 0 0 3px rgba(255, 255, 255, 0.5);
+}
+
+#create-account-info-screen .create-account-button {
+    position: fixed;  /* Fixed to viewport */
+    bottom: 5vh;
+    left: 50%;
+    transform: translateX(-50%);
+    width: 70vw;
+    height: auto;
+    border: none;
+    background: transparent;
+    padding: 0;
+    cursor: pointer;
+    transition: transform 0.2s ease;
+    z-index: 10;
+}
+
+#create-account-info-screen .create-account-button img {
+    width: 100%;
+    height: auto;
+    display: block;
+}
+
+#create-account-info-screen .create-account-button:active {
+    transform: translateX(-50%) scale(0.95);
 }

@@ -173,10 +173,50 @@
         </div>
     </div>
 
+    <!-- Create Account Info Screen -->
     <div id="create-account-info-screen" class="screen">
-        <div class="screen-content">
-            <h1>Create Account Info Screen</h1>
-            <p>Placeholder - we'll build the UI next</p>
+    <!-- Header -->
+        <div class="screen-header">
+            <img src="css/images/airmonsterswordmark.png" alt="Air Monsters" class="header-logo">
+        </div>
+        
+        <!-- Content -->
+        <div class="account-content">
+            <!-- Background card -->
+            <div style="position: relative; width: 80vw;">
+                <img src="css/images/landing/createaccountbackground.png" alt="" class="account-backdrop">
+                
+                <!-- Avatar circle -->
+                <div class="avatar-circle"></div>
+                
+                <!-- Username label -->
+                <p class="username-label">Create your username:</p>
+
+                <!-- Username input -->
+                <div class="username-input-container">
+                    <input 
+                        type="text" 
+                        class="username-input" 
+                        maxlength="20"
+                    >
+                </div>
+            
+                <!-- Password label -->
+                <p class="password-label">Create your password:</p>
+                
+                <!-- Password inputs -->
+                <div class="password-inputs">
+                    <input type="password" class="password-digit" maxlength="1" pattern="[0-9]">
+                    <input type="password" class="password-digit" maxlength="1" pattern="[0-9]">
+                    <input type="password" class="password-digit" maxlength="1" pattern="[0-9]">
+                    <input type="password" class="password-digit" maxlength="1" pattern="[0-9]">
+                </div>
+            </div>
+            
+            <!-- Create account button - MOVED OUTSIDE wrapper -->
+            <button class="create-account-button">
+                <img src="css/images/landing/createaccountbutton.png" alt="Create account!">
+            </button>
         </div>
     </div>
 
