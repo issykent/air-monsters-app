@@ -1,6 +1,73 @@
-/* Home */
+/* Home Screen */
 #home-screen {
     background: #abe3ff;
     width: 100vw;
     height: 100vh;
+    overflow: hidden;
+}
+
+/* Home Header */
+.home-header {
+    width: 100vw;
+    height: 8vh;
+    background: #abe3ff;
+    position: fixed;
+    top: 0;
+    left: 0;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    z-index: 100;
+}
+
+/* Wordmark (Left) */
+.home-wordmark {
+    height: 6vh;
+    width: auto;
+    margin-left: 4vw;
+}
+
+/* Profile Circle (Right) */
+.home-profile-circle {
+    width: 6vh;
+    height: 6vh;
+    border-radius: 50%;
+    background: white;
+    margin-right: 4vw;
+    overflow: hidden;
+    cursor: pointer;
+    transition: transform 0.2s ease;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    position: relative;
+}
+
+.home-profile-circle:hover {
+    transform: scale(1.05);
+}
+
+.home-profile-circle:active {
+    transform: scale(0.95);
+}
+
+/* Profile avatar layers */
+.home-avatar-layer {
+    position: absolute;
+    width: 80%;
+    height: 80%;
+    top: 10%;
+    left: 10%;
+    object-fit: contain;
+}
+
+/* Home Content */
+.home-content {
+    position: absolute;
+    top: 8vh;
+    left: 0;
+    width: 100vw;
+    height: calc(100vh - 8vh);
+    overflow-y: auto;
+    padding: 2vh 4vw;
 }

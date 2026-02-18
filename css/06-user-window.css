@@ -1,1 +1,37 @@
-/* User Window */
+/* User Window Screen */
+#user-window-screen {
+    background: #abe3ff;
+    width: 100vw;
+    height: 100vh;
+    overflow: hidden;
+}
+
+/* Header with wordmark */
+.user-window-header {
+    background: #abe3ff;
+    width: 100vw;
+    height: 10vh;
+    position: fixed;
+    top: 0;
+    left: 0;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    z-index: 100;
+}
+
+.user-window-header .header-logo {
+    height: 8vh;
+    width: auto;
+}
+
+/* Content Area */
+.user-window-content {
+    position: absolute;
+    top: 10vh;
+    left: 0;
+    width: 100vw;
+    height: calc(100vh - 10vh);
+    overflow-y: auto;
+    padding: 2vh 4vw;
+}
