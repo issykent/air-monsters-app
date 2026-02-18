@@ -46,22 +46,41 @@
 
     <!-- Login Form Screen -->
     <div id="login-form-screen" class="screen">
-        <div class="screen-content">
-            <img src="css/images/airmonsterswordmark.png" alt="Air Monsters" class="landing-logo">
-            
-            <div class="login-card">
-                <input type="text" class="username-input" placeholder="Enter username..." maxlength="20">
+        
+        <!-- Content -->
+        <div class="login-content">
+            <!-- Background card -->
+            <div class="login-wrapper">
+                <img src="css/images/landing/loginbackground.png" alt="" class="login-backdrop">
                 
-                <p class="password-label">Enter your password:</p>
-                <div class="password-circles">
-                    <input type="password" class="password-circle" maxlength="1" pattern="[0-9]">
-                    <input type="password" class="password-circle" maxlength="1" pattern="[0-9]">
-                    <input type="password" class="password-circle" maxlength="1" pattern="[0-9]">
-                    <input type="password" class="password-circle" maxlength="1" pattern="[0-9]">
+                <!-- Username label -->
+                <p class="login-username-label">Enter your username:</p>
+                
+                <!-- Username input -->
+                <div class="login-username-input-container">
+                    <input 
+                        type="text" 
+                        class="login-username-input" 
+                        maxlength="20"
+                    >
                 </div>
                 
-                <button class="login-submit-button" id="login-submit-button">Log In!</button>
+                <!-- Password label -->
+                <p class="login-password-label">Enter your password:</p>
+                
+                <!-- Password inputs -->
+                <div class="login-password-inputs">
+                    <input type="password" class="login-password-digit" maxlength="1" pattern="[0-9]">
+                    <input type="password" class="login-password-digit" maxlength="1" pattern="[0-9]">
+                    <input type="password" class="login-password-digit" maxlength="1" pattern="[0-9]">
+                    <input type="password" class="login-password-digit" maxlength="1" pattern="[0-9]">
+                </div>
             </div>
+            
+            <!-- Login button - OUTSIDE wrapper -->
+            <button class="login-submit-button">
+                <img src="css/images/landing/loginbutton.png" alt="Log In!">
+            </button>
         </div>
     </div>
 

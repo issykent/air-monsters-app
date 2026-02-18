@@ -62,9 +62,10 @@ function setupLandingButtons() {
 
 // Setup login form
 function setupLoginForm() {
-    const loginSubmitBtn = document.getElementById('login-submit-button');
-    const passwordCircles = document.querySelectorAll('.password-circle');
+    const loginSubmitBtn = document.querySelector('.login-submit-button');
+    const passwordCircles = document.querySelectorAll('.login-password-digit');
     
+    // Auto-focus next circle when digit entered
     passwordCircles.forEach((circle, index) => {
         circle.addEventListener('input', (e) => {
             e.target.value = e.target.value.replace(/[^0-9]/g, '');
@@ -83,7 +84,7 @@ function setupLoginForm() {
     
     if (loginSubmitBtn) {
         loginSubmitBtn.addEventListener('click', () => {
-            const username = document.querySelector('.username-input').value;
+            const username = document.querySelector('.login-username-input').value;
             const password = Array.from(passwordCircles).map(c => c.value).join('');
             
             console.log('Login attempt:', username, password);
