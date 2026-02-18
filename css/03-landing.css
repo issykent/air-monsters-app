@@ -162,6 +162,7 @@
     margin: 0;
     text-align: center;
     white-space: nowrap;
+    z-index: 20;
 }
 
 /* Username input */
@@ -178,6 +179,7 @@
     align-items: center;
     justify-content: center;
     padding: 0 2vw;
+    z-index: 20;
 }
 
 #create-account-info-screen .username-input {

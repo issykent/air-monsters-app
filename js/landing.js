@@ -2,12 +2,14 @@
 
 import { showScreen } from './app.js';
 import { state } from './config.js';
+import { login, createAccount } from '../user-account-info/auth.js';
 
 function initLanding() {
     console.log('Landing initialized');
     setupLandingButtons();
     setupLoginForm();
-    monitorCreateAccountScreen();  // Changed from renderAvatar()
+    setupCreateAccountForm();
+    monitorCreateAccountScreen();
 }
 
 // Monitor when create-account-info-screen becomes visible
@@ -20,7 +22,6 @@ function monitorCreateAccountScreen() {
         }
     });
     
-    // Watch for class changes on all screens
     document.querySelectorAll('.screen').forEach(screen => {
         observer.observe(screen, { attributes: true, attributeFilter: ['class'] });
     });
@@ -31,15 +32,10 @@ function setupLandingButtons() {
     const createAccountBtn = document.getElementById('create-account-button');
     const loginBtn = document.getElementById('login-button');
     
-    console.log('🔵 Create account button found:', !!createAccountBtn);
-    console.log('🔵 Login button found:', !!loginBtn);
-    
     if (createAccountBtn) {
         createAccountBtn.addEventListener('click', () => {
             console.log('Create account clicked');
-            
             state.customiserContext = 'new-account';
-            console.log('Context set to: new-account');
             
             if (window.startLoading) {
                 window.startLoading('customiser-screen');
@@ -47,9 +43,6 @@ function setupLandingButtons() {
                 showScreen('customiser-screen');
             }
         });
-        console.log('🔵 Event listener added to create account button');
-    } else {
-        console.log('🔴 ERROR: Create account button NOT FOUND!');
     }
     
     if (loginBtn) {
@@ -65,7 +58,6 @@ function setupLoginForm() {
     const loginSubmitBtn = document.querySelector('.login-submit-button');
     const passwordCircles = document.querySelectorAll('.login-password-digit');
     
-    // Auto-focus next circle when digit entered
     passwordCircles.forEach((circle, index) => {
         circle.addEventListener('input', (e) => {
             e.target.value = e.target.value.replace(/[^0-9]/g, '');
@@ -87,19 +79,101 @@ function setupLoginForm() {
             const username = document.querySelector('.login-username-input').value;
             const password = Array.from(passwordCircles).map(c => c.value).join('');
             
-            console.log('Login attempt:', username, password);
-            alert('Login functionality coming soon! For now, click "Create an account" to build your character.');
+            console.log('🔐 Login attempt:', username);
+            
+            // Attempt login
+            const result = login(username, password);
+            
+            if (result.success) {
+                console.log('✅ Login successful!');
+                // Go to home screen via loading
+                if (window.startLoading) {
+                    window.startLoading('home-screen');
+                } else {
+                    showScreen('home-screen');
+                }
+            } else {
+                console.log('❌ Login failed:', result.error);
+                alert(result.error);  // TODO: Replace with custom popup later
+            }
         });
+    }
+}
+
+// Setup create account form
+function setupCreateAccountForm() {
+    console.log('🔧 setupCreateAccountForm() called');
+    
+    const createAccountBtn = document.querySelector('.create-account-button');
+    const passwordDigits = document.querySelectorAll('#create-account-info-screen .password-digit');
+    
+    console.log('🔧 Create account button found:', !!createAccountBtn);
+    console.log('🔧 Password digits found:', passwordDigits.length);
+    
+    // Auto-advance between password digits
+    passwordDigits.forEach((digit, index) => {
+        digit.addEventListener('input', (e) => {
+            e.target.value = e.target.value.replace(/[^0-9]/g, '');
+            
+            if (e.target.value && index < passwordDigits.length - 1) {
+                passwordDigits[index + 1].focus();
+            }
+        });
+        
+        digit.addEventListener('keydown', (e) => {
+            if (e.key === 'Backspace' && !e.target.value && index > 0) {
+                passwordDigits[index - 1].focus();
+            }
+        });
+    });
+    
+    if (createAccountBtn) {
+        console.log('🔧 Adding click listener to create account button');
+        
+        createAccountBtn.addEventListener('click', () => {
+            console.log('🎯 CREATE ACCOUNT BUTTON CLICKED!'); // <-- ADD THIS
+            
+            const username = document.querySelector('#create-account-info-screen .username-input').value;
+            const password = Array.from(passwordDigits).map(d => d.value).join('');
+            
+            console.log('🎯 Username:', username); // <-- ADD THIS
+            console.log('🎯 Password:', password); // <-- ADD THIS
+            console.log('🎯 Guardian:', state.selectedGuardian); // <-- ADD THIS
+            
+            // Get guardian data from state
+            if (!state.selectedGuardian) {
+                console.log('❌ No guardian selected!');
+                alert('Error: No character selected!');
+                return;
+            }
+            
+            // Attempt to create account
+            const result = createAccount(username, password, state.selectedGuardian);
+            
+            console.log('🎯 Create account result:', result); // <-- ADD THIS
+            
+            if (result.success) {
+                console.log('✅ Account created successfully!');
+                // Go to home screen via loading
+                if (window.startLoading) {
+                    window.startLoading('home-screen');
+                } else {
+                    showScreen('home-screen');
+                }
+            } else {
+                console.log('❌ Account creation failed:', result.error);
+                alert(result.error);
+            }
+        });
+        
+        console.log('🔧 Click listener added!');
     }
 }
 
 // Render the character avatar in the profile circle
 function renderAvatar() {
     console.log('🎨 renderAvatar() called');
-    console.log('🎨 state.selectedGuardian:', state.selectedGuardian);
-    
     const avatarCircle = document.querySelector('.avatar-circle');
-    console.log('🎨 Avatar circle element:', avatarCircle);
     
     if (!avatarCircle) {
         console.log('❌ No avatar circle found!');
@@ -107,63 +181,50 @@ function renderAvatar() {
     }
     
     if (!state.selectedGuardian) {
-        console.log('⚠️ No selected guardian yet - circle will stay white');
+        console.log('⚠️ No selected guardian yet');
         return;
     }
     
     const guardian = state.selectedGuardian;
     console.log('✅ Rendering avatar for:', guardian);
     
-    // Clear existing content
     avatarCircle.innerHTML = '';
     
-    // Create image layers based on style
     if (guardian.style === 'style3') {
-        // Style 3 (Tornado): Body → Accessory → Eyes
         const bodyImg = document.createElement('img');
         bodyImg.src = `css/images/${guardian.style}/${guardian.style}-${guardian.color}.png`;
         bodyImg.className = 'avatar-layer';
-        console.log('🎨 Adding body:', bodyImg.src);
         avatarCircle.appendChild(bodyImg);
         
         if (guardian.accessory) {
             const accessoryImg = document.createElement('img');
             accessoryImg.src = `css/images/${guardian.style}/${guardian.style}-${guardian.accessory}.png`;
             accessoryImg.className = 'avatar-layer';
-            console.log('🎨 Adding accessory:', accessoryImg.src);
             avatarCircle.appendChild(accessoryImg);
         }
         
         const eyesImg = document.createElement('img');
         eyesImg.src = `css/images/${guardian.style}/${guardian.style}-${guardian.eyes}.png`;
         eyesImg.className = 'avatar-layer';
-        console.log('🎨 Adding eyes:', eyesImg.src);
         avatarCircle.appendChild(eyesImg);
     } else {
-        // Style 1 & 2: Body → Eyes → Accessory
         const bodyImg = document.createElement('img');
         bodyImg.src = `css/images/${guardian.style}/${guardian.style}-${guardian.color}.png`;
         bodyImg.className = 'avatar-layer';
-        console.log('🎨 Adding body:', bodyImg.src);
         avatarCircle.appendChild(bodyImg);
         
         const eyesImg = document.createElement('img');
         eyesImg.src = `css/images/${guardian.style}/${guardian.style}-${guardian.eyes}.png`;
         eyesImg.className = 'avatar-layer';
-        console.log('🎨 Adding eyes:', eyesImg.src);
         avatarCircle.appendChild(eyesImg);
         
         if (guardian.accessory) {
             const accessoryImg = document.createElement('img');
             accessoryImg.src = `css/images/${guardian.style}/${guardian.style}-${guardian.accessory}.png`;
             accessoryImg.className = 'avatar-layer';
-            console.log('🎨 Adding accessory:', accessoryImg.src);
             avatarCircle.appendChild(accessoryImg);
         }
     }
-    
-    console.log('✅ Avatar rendered! Circle children:', avatarCircle.children.length);
 }
 
-// Initialize when ready
 initLanding();
