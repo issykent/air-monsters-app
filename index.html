@@ -297,23 +297,12 @@
             <!-- FOOTER -->
             <div class="home-footer">
                 <button class="home-footer-btn" id="footer-hunt-btn">
-                    <img src="css/images/home-screen/findnearbyairmonstersbutton.png" alt="Find nearby air monsters!">
-                </button>
-                <button class="home-footer-btn" id="footer-guardian-btn">
-                    <img src="css/images/home-screen/checkonyourairguardianbutton.png" alt="Check on your air guardian!">
+                    <img src="css/images/home-screen/huntmodebutton2.png" alt="Find nearby air monsters!">
                 </button>
             </div>
             <button class="home-logout-btn" id="home-logout-btn">Log out</button>
 
         </div>
-    </div>
-
-    <div id="map-screen" class="screen">
-        <div class="screen-content"><h1>Map Screen</h1></div>
-    </div>
-
-    <div id="ar-screen" class="screen">
-        <div class="screen-content"><h1>AR Screen</h1></div>
     </div>
 
     <div id="user-window-screen" class="screen">
@@ -395,6 +384,23 @@
         </div>
     </div>
 
+    <div id="ar-screen" class="screen">
+        <!-- CAMERA FEED (base layer) -->
+        <video class="ar-camera-feed" id="ar-camera-feed" autoplay playsinline muted></video>
+            
+        <!-- OVERLAY PNG (sits on top of camera) -->
+        <img src="css/images/ar-elements/huntmodebackground.png" alt="" class="ar-overlay-img">
+
+        <!-- EXIT BUTTON -->
+        <button class="ar-exit-btn" id="ar-exit-btn">✕</button>
+
+        <!-- CAMERA PERMISSION DENIED MESSAGE -->
+        <div class="ar-permission-denied" id="ar-permission-denied">
+            <p>Camera access is needed to hunt Air Monsters!</p>
+            <p>Please allow camera access and try again.</p>
+        </div>
+    </div>
+
     <script type="module" src="user-account-info/storage.js"></script>
     <script type="module" src="user-account-info/auth.js"></script>
     <script type="module" src="js/config.js"></script>
@@ -404,7 +410,7 @@
     <script type="module" src="js/customiser.js"></script>
     <script type="module" src="js/home.js"></script>
     <script type="module" src="js/map.js"></script>
-    <script type="module" src="js/ar.js"></script>
+    <script type="module" src="js/ar.js?v=2"></script>
     <script type="module" src="js/user-window.js"></script>
 </body>
 </html>

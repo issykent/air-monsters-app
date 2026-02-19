@@ -1,1 +1,78 @@
 /* AR */
+/* ================================
+   AR / HUNT MODE SCREEN
+   ================================ */
+
+#ar-screen {
+    position: fixed;
+    inset: 0;
+    width: 100vw;
+    height: 100vh;
+    background: #000;
+    overflow: hidden;
+}
+
+/* Camera feed — full screen base layer */
+.ar-camera-feed {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100vw;
+    height: 100vh;
+    object-fit: cover;
+    z-index: 1;
+}
+
+/* Overlay PNG — full screen on top of camera */
+.ar-overlay-img {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100vw;
+    height: 100vh;
+    object-fit: cover;
+    z-index: 2;
+    pointer-events: none; /* clicks pass through to elements below */
+}
+
+/* Exit button */
+.ar-exit-btn {
+    position: absolute;
+    top: 5vh;
+    left: 5vw;
+    z-index: 10;
+    background: rgba(0, 0, 0, 0.4);
+    border: none;
+    border-radius: 50%;
+    width: 10vw;
+    height: 10vw;
+    color: white;
+    font-size: 18pt;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    transition: transform 0.2s ease;
+}
+
+.ar-exit-btn:active {
+    transform: scale(0.95);
+}
+
+/* Permission denied message */
+.ar-permission-denied {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    z-index: 10;
+    background: rgba(255, 255, 255, 0.9);
+    border-radius: 20px;
+    padding: 4vh 6vw;
+    text-align: center;
+    font-family: 'Chango', cursive;
+    font-size: 12pt;
+    color: #2C3E50;
+    display: none; /* shown by JS if permission denied */
+    width: 80vw;
+}

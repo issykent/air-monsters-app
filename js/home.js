@@ -3,10 +3,13 @@
 import { showScreen } from './app.js';
 import { getCurrentUserData } from '../user-account-info/storage.js';
 
-function initHome() {
-    console.log('Home initialized');
-    renderProfileAvatar();
-    setupProfileClick();
+function setupHuntButtons() {
+    document.getElementById('home-hunt-btn')?.addEventListener('click', () => {
+        console.log('🎯 Hunt button clicked!');
+        console.log('Current screen before:', document.querySelector('.screen.active')?.id);
+        showScreen('ar-screen');
+        console.log('Current screen after:', document.querySelector('.screen.active')?.id);
+    });
 }
 
 // Render the user's character in the profile circle
@@ -88,5 +91,15 @@ function setupProfileClick() {
     }
 }
 
-// Initialize when ready
-initHome();
+// Watch for home screen becoming active
+const homeScreen = document.getElementById('home-screen');
+if (homeScreen) {
+    const observer = new MutationObserver(() => {
+        if (homeScreen.classList.contains('active')) {
+            renderProfileAvatar();
+            setupProfileClick();
+            setupHuntButtons();
+        }
+    });
+    observer.observe(homeScreen, { attributes: true, attributeFilter: ['class'] });
+}

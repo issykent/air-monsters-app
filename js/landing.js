@@ -14,17 +14,17 @@ function initLanding() {
 
 // Monitor when create-account-info-screen becomes visible
 function monitorCreateAccountScreen() {
+    const screen = document.getElementById('create-account-info-screen');
+    if (!screen) return;
+    
     const observer = new MutationObserver(() => {
-        const screen = document.getElementById('create-account-info-screen');
-        if (screen && screen.classList.contains('active')) {
+        if (screen.classList.contains('active')) {
             console.log('🎨 Create account screen is now active!');
             renderAvatar();
         }
     });
     
-    document.querySelectorAll('.screen').forEach(screen => {
-        observer.observe(screen, { attributes: true, attributeFilter: ['class'] });
-    });
+    observer.observe(screen, { attributes: true, attributeFilter: ['class'] });
 }
 
 // Setup landing screen buttons
