@@ -385,16 +385,17 @@
     </div>
 
     <div id="ar-screen" class="screen">
-        <!-- CAMERA FEED (base layer) -->
         <video class="ar-camera-feed" id="ar-camera-feed" autoplay playsinline muted></video>
-            
-        <!-- OVERLAY PNG (sits on top of camera) -->
-        <img src="css/images/ar-elements/huntmodebackground.png" alt="" class="ar-overlay-img">
+        <img src="css/images/ar-elements/huntmodeoverlay.png" alt="" class="ar-overlay-img">
+        
+        <!-- Wordmark top left -->
+       
+        
+        <!-- Exit button top right -->
+        <button class="ar-exit-btn" id="ar-exit-btn">
+            <img src="css/images/ar-elements/exithuntmodebutton.png" alt="Exit hunt mode">
+        </button>
 
-        <!-- EXIT BUTTON -->
-        <button class="ar-exit-btn" id="ar-exit-btn">✕</button>
-
-        <!-- CAMERA PERMISSION DENIED MESSAGE -->
         <div class="ar-permission-denied" id="ar-permission-denied">
             <p>Camera access is needed to hunt Air Monsters!</p>
             <p>Please allow camera access and try again.</p>

@@ -30,9 +30,9 @@
     left: 0;
     width: 100vw;
     height: 100vh;
-    object-fit: cover;
+    object-fit: fill;
     z-index: 2;
-    pointer-events: none; /* clicks pass through to elements below */
+    pointer-events: none;
 }
 
 /* Exit button */
@@ -75,4 +75,28 @@
     color: #2C3E50;
     display: none; /* shown by JS if permission denied */
     width: 80vw;
+}
+
+.ar-exit-btn {
+    position: absolute;
+    top: 4.3%;
+    left: 60.5%;
+    height: 8vh;
+    width: auto;
+    z-index: 10;
+    background: none;
+    border: none;
+    padding: 0;
+    cursor: pointer;
+    transition: transform 0.2s ease;
+}
+
+.ar-exit-btn img {
+    height: 100%;
+    width: auto;
+    display: block;
+}
+
+.ar-exit-btn:active {
+    transform: scale(0.97);
 }
