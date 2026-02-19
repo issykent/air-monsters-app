@@ -207,13 +207,13 @@
 }
 
 /* --- USER CLEAN AIR CATCH CARD --- */
-.user-clean-air-card {
+#user-window-screen .user-clean-air-card {
     display: flex;
     justify-content: center;
     width: 100%;
 }
 
-.clean-air-card-image {
+#user-window-screen .clean-air-card-image {
     width: 90vw;
     height: auto;
     display: block;
