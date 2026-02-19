@@ -1,5 +1,8 @@
 import { state } from './config.js';
 
+import { monitorUserWindow } from './user-window.js';
+monitorUserWindow();
+
 export function showScreen(screenId) {
     document.querySelectorAll('.screen').forEach(s => s.classList.remove('active'));
     const screen = document.getElementById(screenId);

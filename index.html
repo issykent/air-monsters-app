@@ -261,14 +261,83 @@
     </div>
 
     <div id="user-window-screen" class="screen">
-        <!-- Header -->
-        <div class="user-window-header">
-            <img src="css/images/airmonsterswordmark.png" alt="Air Monsters" class="header-logo">
-        </div>
-        
-        <!-- Content Area -->
+
+        <!-- FIXED HEADER -->
+        <header class="user-window-header">
+            <button class="user-window-back-btn" id="user-window-back-btn" aria-label="Go back">
+                <svg viewBox="0 0 32 32" fill="none" xmlns="http://www.w3.org/2000/svg">
+                    <path d="M20 6 L9 16 L20 26" stroke="#2C3E50" stroke-width="3.5" stroke-linecap="round" stroke-linejoin="round"/>
+                </svg>
+            </button>
+            <img src="css/images/airmonsterswordmark.png" alt="Air Monsters" class="user-window-wordmark">
+        </header>
+
+        <!-- SCROLLABLE CONTENT -->
         <div class="user-window-content">
-            <!-- Content will go here -->
+
+            <!-- AVATAR DISPLAY WINDOW (arch shape) -->
+            <div class="avatar-display-window">
+
+                <!-- Blue banner with guardian name -->
+                <div class="guardian-name-banner">
+                    <img src="css/images/user-window/bluebanner.png" alt="">
+                    <span class="guardian-name-text" id="guardian-display-name">NAME</span>
+                </div>
+
+                <!-- Character + shadow -->
+                <div class="avatar-display-inner">
+                    <img src="css/images/shadowshape.png" alt="" class="avatar-shadow">
+                    <div class="avatar-layers" id="user-window-avatar-layers">
+                        <!-- Avatar PNG layers injected by JS -->
+                    </div>
+                </div>
+
+                <!-- STATS BARS -->
+                <div class="stats-section">
+                    <div class="stat-bar health-bar">
+                        <span class="stat-bar-label"></span>
+                    </div>
+
+                    <div class="stat-bar happiness-bar">
+                        <span class="stat-bar-label"></span>
+                    </div>
+                </div>
+
+                <!-- TIPS BUTTON -->
+                <div class="tips-section">
+                    <button class="tips-btn" id="tips-btn">
+                        <img src="css/images/user-window/guardiancaremanualbutton.png" alt="Quick tips">
+                    </button>
+                </div>
+
+            </div>
+
+            <!-- USER CLEAN AIR CATCH CARD -->
+            <div class="user-clean-air-card">
+                <div class="clean-air-card-content">
+                    <img src="/css/images/cleanaircatchcard.png" alt="Clean Air Card" class="clean-air-card-image">
+                </div>
+            </div>
+
+            <!-- HUNT BUTTON -->
+            <div class="hunt-btn-wrapper">
+                <div class="hunt-btn-bg"></div>
+                <button class="hunt-btn" id="hunt-btn">
+                    <img src="css/images/user-window/huntmodebutton.png" alt="Find nearby air monsters!">
+                </button>
+            </div>
+
+            <!-- EDIT STYLE BUTTON -->
+            <button class="edit-style-btn" id="edit-style-btn">
+                <img src="css/images/user-window/editguardianstylebutton.png" alt="Edit your guardian's style!">
+            </button>
+
+            <!-- FOOTER -->
+            <div class="user-window-footer">
+                <button class="footer-btn" id="account-settings-btn">Account settings</button>
+                <button class="footer-btn" id="logout-btn">Log out</button>
+            </div>
+
         </div>
     </div>
 
