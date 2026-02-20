@@ -1,0 +1,81 @@
+/* ================================
+   AR CATCH MODE SCREEN
+   ================================ */
+
+#ar-catchmode-screen {
+    position: fixed;
+    inset: 0;
+    width: 100vw;
+    height: 100vh;
+    background: #000;
+    overflow: hidden;
+}
+
+/* Camera feed */
+.ar-catchmode-feed {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100vw;
+    height: 100vh;
+    object-fit: cover;
+    z-index: 1;
+}
+
+/* Red border overlay SVG */
+.ar-catch-overlay-svg {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100vw;
+    height: 100vh;
+    z-index: 2;
+    pointer-events: none;
+}
+
+/* Monster sprite — centred */
+.ar-catchmode-monster-sprite {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    width: 50vw;
+    height: auto;
+    z-index: 5;
+    pointer-events: none;
+}
+
+/* Wordmark top left */
+.ar-catchmode-wordmark {
+    position: absolute;
+    top: 5%;
+    left: 5%;
+    height: 8vh;
+    width: auto;
+    z-index: 10;
+}
+
+/* Exit button top right */
+.ar-catchmode-exit-btn {
+    position: absolute;
+    top: 4.3%;
+    right: 5%;
+    height: 8vh;
+    width: auto;
+    z-index: 10;
+    background: none;
+    border: none;
+    padding: 0;
+    cursor: pointer;
+    transition: transform 0.2s ease;
+}
+
+.ar-catchmode-exit-btn img {
+    height: 100%;
+    width: auto;
+    display: block;
+}
+
+.ar-catchmode-exit-btn:active {
+    transform: scale(0.97);
+}

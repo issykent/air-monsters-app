@@ -18,6 +18,8 @@
     <link rel="stylesheet" href="css/04-map.css">
     <link rel="stylesheet" href="css/05-ar.css">
     <link rel="stylesheet" href="css/06-user-window.css">
+    <link rel="stylesheet" href="css/07-ar-catchmode.css">
+
 </head>
 <body>
     <div id="loading-screen" class="screen active">
@@ -388,9 +390,6 @@
         <video class="ar-camera-feed" id="ar-camera-feed" autoplay playsinline muted></video>
         <img src="css/images/ar-elements/huntmodeoverlay.png" alt="" class="ar-overlay-img">
         
-        <!-- Wordmark top left -->
-       
-        
         <!-- Exit button top right -->
         <button class="ar-exit-btn" id="ar-exit-btn">
             <img src="css/images/ar-elements/exithuntmodebutton.png" alt="Exit hunt mode">
@@ -400,6 +399,35 @@
             <p>Camera access is needed to hunt Air Monsters!</p>
             <p>Please allow camera access and try again.</p>
         </div>
+
+        <!-- ENTER CATCH MODE BUTTON -->
+        <button class="ar-enter-catch-btn" id="enter-catch-mode-btn" style="display:none;">
+            <svg viewBox="0 0 200 200" xmlns="http://www.w3.org/2000/svg">
+                <circle cx="100" cy="100" r="90" fill="red"/>
+                <text x="100" y="115" text-anchor="middle" fill="white" font-family="Chango" font-size="24">CATCH!</text>
+            </svg>
+        </button>
+    </div>
+
+    <div id="ar-catchmode-screen" class="screen">
+        <!-- CAMERA FEED -->
+        <video class="ar-catchmode-feed" id="ar-catchmode-feed" autoplay playsinline muted></video>
+
+        <!-- CATCH MODE OVERLAY SVG (red border) -->
+        <svg class="ar-catch-overlay-svg" viewBox="0 0 390 844" xmlns="http://www.w3.org/2000/svg" preserveAspectRatio="none">
+            <rect x="5" y="5" width="380" height="834" fill="none" stroke="red" stroke-width="10"/>
+        </svg>
+
+        <!-- MONSTER SPRITE -->
+        <img src="" alt="Monster" id="ar-catchmode-monster-sprite" class="ar-catchmode-monster-sprite">
+
+        <!-- WORDMARK top left -->
+        <img src="css/images/airmonsterswordmark.png" alt="Air Monsters" class="ar-catchmode-wordmark">
+
+        <!-- EXIT BUTTON top right -->
+        <button class="ar-catchmode-exit-btn" id="ar-catchmode-exit-btn">
+            <img src="css/images/ar-elements/exithuntmodebutton.png" alt="Exit">
+        </button>
     </div>
 
     <script type="module" src="user-account-info/storage.js"></script>
@@ -413,5 +441,7 @@
     <script type="module" src="js/map.js"></script>
     <script type="module" src="js/ar.js?v=2"></script>
     <script type="module" src="js/user-window.js"></script>
+    <script type="module" src="js/monsters.js"></script>
+    <script type="module" src="js/ar-catchmode.js"></script>
 </body>
 </html>
