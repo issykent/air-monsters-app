@@ -419,7 +419,8 @@
         </svg>
 
         <!-- MONSTER SPRITE -->
-        <img src="" alt="Monster" id="ar-catchmode-monster-sprite" class="ar-catchmode-monster-sprite">
+        <canvas id="ar-three-canvas" class="ar-three-canvas"></canvas>
+        <img src="" alt="Monster" id="ar-catchmode-monster-sprite" class="ar-catchmode-monster-sprite" style="display:none;">
 
         <!-- WORDMARK top left -->
         <img src="css/images/airmonsterswordmark.png" alt="Air Monsters" class="ar-catchmode-wordmark">
@@ -429,6 +430,9 @@
             <img src="css/images/ar-elements/exithuntmodebutton.png" alt="Exit">
         </button>
     </div>
+
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/three@0.128.0/examples/js/loaders/GLTFLoader.js"></script>
 
     <script type="module" src="user-account-info/storage.js"></script>
     <script type="module" src="user-account-info/auth.js"></script>
