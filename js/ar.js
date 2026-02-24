@@ -77,6 +77,10 @@ function stopGPS() {
 }
 
 function checkProximity(userLat, userLon) {
+    
+    state.userLat = userLat;
+    state.userLon = userLon;
+
     const catchBtn = document.getElementById('enter-catch-mode-btn');
     const distanceDisplay = document.getElementById('ar-distance-display');
     console.log('🔍 catchBtn found:', !!catchBtn);
