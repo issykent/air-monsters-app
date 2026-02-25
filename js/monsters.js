@@ -12,6 +12,7 @@ export function getMonsterFromAQI(aqi) {
 }
 
 export const monsterLocations = [
+    { id: 0, name: "Test - Home", lat: 51.500884, lon: -0.067971, monsterType: 'sprout' },
     { id: 1,  name: "Oasis Academy Johanne",          lat: 51.498723, lon: -0.110890, monsterType: 'sprout' },
     { id: 2,  name: "St Thomas Hospital",             lat: 51.500189, lon: -0.119003, monsterType: 'argo'   },
     { id: 3,  name: "Westminster Bridge Road",        lat: 51.499931, lon: -0.114193, monsterType: 'argo'   },

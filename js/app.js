@@ -1,6 +1,7 @@
 import { state } from './config.js';
-
 import { monitorUserWindow } from './user-window.js';
+import { initAQI } from './aqi.js';
+
 monitorUserWindow();
 
 export function showScreen(screenId) {
@@ -15,8 +16,7 @@ export function showScreen(screenId) {
 
 function init() {
     console.log('App initialized');
-    // REMOVED: setTimeout(() => showScreen('customiser-screen'), 2000);
-    // Let loading.js handle the initial screen flow
+    initAQI().catch(err => console.error('❌ initAQI failed:', err));
 }
 
 if (document.readyState === 'loading') {
