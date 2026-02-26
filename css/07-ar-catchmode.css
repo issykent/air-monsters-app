@@ -87,5 +87,112 @@
     width: 100vw;
     height: 100vh;
     z-index: 5;
-    pointer-events: none;
+}
+
+/* ================================
+   CATCH CARD OVERLAY
+   ================================ */
+
+/* Dark overlay behind card */
+.catch-card-overlay {
+    position: fixed;
+    inset: 0;
+    background: rgba(0, 0, 0, 0.75);
+    z-index: 200;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    opacity: 0;
+    transition: opacity 0.3s ease;
+    overflow-y: auto;
+    padding: 10vh 0;
+}
+
+.catch-card-overlay.visible {
+    opacity: 1;
+}
+
+/* Card container — 3D perspective */
+.catch-card-container {
+    width: 62vw;
+    height: auto;
+    perspective: 1000px;
+    margin: 5vh auto;
+}
+
+/* Card inner — this is what flips */
+.catch-card-inner {
+    width: 100%;
+    height: auto;
+    aspect-ratio: 1 / 2.15;
+    position: relative;
+    transform-style: preserve-3d;
+    transform: rotateY(0deg);
+    transition: transform 0.8s cubic-bezier(0.4, 0.0, 0.2, 1);
+}
+
+.catch-card-inner.flipped {
+    transform: rotateY(180deg);
+}
+
+/* Front and back share same position */
+.catch-card-front,
+.catch-card-back {
+    position: absolute;
+    inset: 0;
+    backface-visibility: hidden;
+    -webkit-backface-visibility: hidden;
+    border-radius: 12px;
+    overflow: hidden;
+}
+
+.catch-card-front img,
+.catch-card-back img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    display: block;
+}
+
+/* Front starts hidden (face down) */
+.catch-card-front {
+    transform: rotateY(180deg);
+}
+
+/* Buttons shown after card lands */
+.catch-card-buttons {
+    position: fixed;
+    bottom: 8vh;
+    left: 50%;
+    transform: translateX(-50%);
+    display: flex;
+    gap: 4vw;
+    z-index: 60;
+    opacity: 0;
+    transition: opacity 0.4s ease 0.3s;
+}
+
+.catch-card-buttons.visible {
+    opacity: 1;
+}
+
+.catch-card-btn {
+    background: white;
+    border: none;
+    border-radius: 50px;
+    padding: 3vw 6vw;
+    font-size: 4vw;
+    font-weight: 700;
+    cursor: pointer;
+    white-space: nowrap;
+}
+
+.catch-card-btn.primary {
+    background: #00C853;
+    color: white;
+}
+
+.catch-card-btn.secondary {
+    background: white;
+    color: #333;
 }

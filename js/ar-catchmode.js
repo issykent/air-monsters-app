@@ -52,15 +52,15 @@ function startDeviceOrientation() {
         DeviceOrientationEvent.requestPermission()
             .then(response => {
                 if (response === 'granted') {
-                    window.addEventListener('deviceorientationabsolute', handleOrientation, true);
-                    window.addEventListener('deviceorientation', handleOrientation, true);
+                    //window.addEventListener('deviceorientationabsolute', handleOrientation, true);
+                    //window.addEventListener('deviceorientation', handleOrientation, true);
                 }
             })
             .catch(err => console.log('❌ Orientation permission denied:', err));
     } else {
         // Android / non-iOS
-        window.addEventListener('deviceorientationabsolute', handleOrientation, true);
-        window.addEventListener('deviceorientation', handleOrientation, true);
+        // window.addEventListener('deviceorientationabsolute', handleOrientation, true);
+        // window.addEventListener('deviceorientation', handleOrientation, true);
     }
 }
 
@@ -97,7 +97,7 @@ function updateMonsterPosition() {
     // 60° FOV means monster moves off screen at ~±30°
     const xOffset = Math.tan(angleDiff * Math.PI / 180) * 3;
 
-    monsterModel.position.x = -xOffset;
+    monsterModel.position.x = 0;
     console.log(`📐 Heading: ${Math.round(deviceHeading)}° | Bearing: ${Math.round(monsterBearing)}° | Offset: ${xOffset.toFixed(2)}`);
 }
 
@@ -128,6 +128,7 @@ function initThreeJS() {
 function loadMonster(monsterType) {
     const loader = new THREE.GLTFLoader();
     const modelPath = `css/images/ar-elements/${monsterType}.glb`;
+    const distance = state.activeMonsterDistance || 5;
     console.log(`👾 Loading 3D model: ${modelPath}`);
 
     loader.load(
@@ -135,8 +136,9 @@ function loadMonster(monsterType) {
         (gltf) => {
             if (monsterModel) threeScene.remove(monsterModel);
             monsterModel = gltf.scene;
-            monsterModel.scale.set(1, 1, 1);
-            monsterModel.position.set(0, 0, 0);
+            const scale = Math.max(0.2, Math.min(2, 5 / distance)) * 0.5;
+            monsterModel.scale.set(scale, scale, scale);
+            monsterModel.position.set(1.5, -3.5, -2);
             threeScene.add(monsterModel);
             console.log(`✅ 3D model loaded: ${monsterType}`);
             animate();
@@ -193,6 +195,7 @@ function renderMonster() {
     initThreeJS();
     loadMonster(monster.monsterType);
     startDeviceOrientation();
+    setupTapToCatch();
 }
 
 // ─── Handle resize ────────────────────────────────────────────────────────────
@@ -232,5 +235,115 @@ if (screen) {
     });
     observer.observe(screen, { attributes: true, attributeFilter: ['class'] });
 }
+
+// ─── CATCH CARD — add these functions to ar-catchmode.js ─────────────────────
+
+// ─── Tap detection on Three.js canvas ────────────────────────────────────────
+function setupTapToCatch() {
+    const canvas = document.getElementById('ar-three-canvas');
+    if (!canvas) return;
+
+    canvas.addEventListener('click', onCanvasTap);
+    canvas.addEventListener('touchend', (e) => {
+        e.preventDefault();
+        onCanvasTap(e.changedTouches[0]);
+    }, { passive: false });
+}
+
+function onCanvasTap(event) {
+    if (!monsterModel || !threeCamera || !threeRenderer) return;
+
+    const canvas = threeRenderer.domElement;
+    const rect = canvas.getBoundingClientRect();
+
+    // Convert tap to normalised device coordinates (-1 to +1)
+    const mouse = new THREE.Vector2(
+        ((event.clientX - rect.left) / rect.width) * 2 - 1,
+        -((event.clientY - rect.top) / rect.height) * 2 + 1
+    );
+
+    // Raycast from camera through tap point
+    const raycaster = new THREE.Raycaster();
+    raycaster.setFromCamera(mouse, threeCamera);
+
+    const intersects = raycaster.intersectObjects(monsterModel.children, true);
+
+    if (intersects.length > 0) {
+        console.log('🎯 Monster tapped — showing catch card!');
+        showCatchCard();
+    }
+}
+
+// ─── Show catch card ──────────────────────────────────────────────────────────
+function showCatchCard() {
+    const monsterType = state.activeMonster?.monsterType || 'sprout';
+
+    // Build overlay HTML
+    const overlay = document.createElement('div');
+    overlay.className = 'catch-card-overlay';
+    overlay.id = 'catch-card-overlay';
+
+    overlay.innerHTML = `
+        <div class="catch-card-container">
+            <div class="catch-card-inner" id="catch-card-inner">
+                <div class="catch-card-back">
+                    <img src="css/images/ar-elements/catchcards/${monsterType}catchcardback.png" alt="card back" />
+                </div>
+                <div class="catch-card-front">
+                    <img src="css/images/ar-elements/catchcards/${monsterType}catchcard.png" alt="${monsterType} catch card" />
+                </div>
+            </div>
+        </div>
+        <div class="catch-card-buttons" id="catch-card-buttons">
+            <button class="catch-card-btn secondary" id="catch-continue-btn">Keep Hunting</button>
+            <button class="catch-card-btn primary" id="catch-home-btn">Go Home</button>
+        </div>
+    `;
+
+    document.body.appendChild(overlay);
+
+    // Fade in overlay
+    requestAnimationFrame(() => {
+        overlay.classList.add('visible');
+
+        // Flip card after short delay
+        setTimeout(() => {
+            const cardInner = document.getElementById('catch-card-inner');
+            if (cardInner) cardInner.classList.add('flipped');
+
+            // Show buttons after flip completes
+            setTimeout(() => {
+                const buttons = document.getElementById('catch-card-buttons');
+                if (buttons) buttons.classList.add('visible');
+            }, 900);
+
+        }, 400);
+    });
+
+    // Button handlers
+    overlay.addEventListener('click', (e) => {
+        if (e.target.id === 'catch-continue-btn') {
+            dismissCatchCard();
+            // Return to hunt mode
+            import('./app.js').then(m => m.showScreen('ar-screen'));
+        }
+        if (e.target.id === 'catch-home-btn') {
+            dismissCatchCard();
+            import('./app.js').then(m => m.showScreen('home-screen'));
+        }
+    });
+}
+
+function dismissCatchCard() {
+    const overlay = document.getElementById('catch-card-overlay');
+    if (overlay) {
+        overlay.classList.remove('visible');
+        setTimeout(() => overlay.remove(), 300);
+    }
+}
+
+// ─── Call setupTapToCatch() inside your existing initCatchMode function ───────
+// Add this line after the camera and Three.js are initialised:
+// setupTapToCatch();
 
 console.log('AR catchmode initialized');

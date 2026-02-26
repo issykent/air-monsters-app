@@ -108,7 +108,10 @@ function checkProximity(userLat, userLon) {
 
     if (catchBtn) {
         catchBtn.style.display = closestDist <= 500 ? 'block' : 'none';
-        if (closestDist <= 500) console.log('🎯 Monster within 500m! Showing catch button');
+        if (closestDist <= 500) {
+            state.activeMonsterDistance = closestDist; // add this line
+            console.log('🎯 Monster within 500m! Showing catch button');
+        }
     }
 }
 
