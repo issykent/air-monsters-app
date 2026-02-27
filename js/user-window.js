@@ -82,6 +82,21 @@ function setupUserWindowButtons() {
     });
 }
 
+// ─── Stat bars ────────────────────────────────────────────────────────────────
+function updateStatBars() {
+    const data = JSON.parse(localStorage.getItem('airMonsters'));
+    const username = data?.currentUser;
+    if (!username) return;
+
+    const stats = data.users[username]?.stats || { health: 50, happiness: 50 };
+
+    const healthFill = document.getElementById('health-bar-fill');
+    const happinessFill = document.getElementById('happiness-bar-fill');
+
+    if (healthFill) healthFill.style.width = `${stats.health}%`;
+    if (happinessFill) happinessFill.style.width = `${stats.happiness}%`;
+}
+
 // ─── MutationObserver — run when screen becomes active ────────────────────────
 export function monitorUserWindow() {
     const screen = document.getElementById('user-window-screen');
@@ -91,6 +106,7 @@ export function monitorUserWindow() {
         if (screen.classList.contains('active')) {
             renderUserWindowAvatar();
             setupUserWindowButtons();
+            updateStatBars();
         }
     });
 

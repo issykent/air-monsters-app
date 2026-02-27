@@ -152,7 +152,9 @@
     align-items: center;
 }
 
+/* --- HEALTH / HAPPINESS FILL BARS --- */
 .stat-bar {
+    position: relative;
     display: flex;
     align-items: center;
     justify-content: center;
@@ -163,20 +165,32 @@
     background-color: transparent;
 }
 
+.stat-bar-fill {
+    position: absolute;
+    top: 70%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    width: 74vw;
+    height: 4vh;
+    border-radius: 50px;
+    border: 3px solid #abe3ff;
+    overflow: hidden;
+}
+
+.stat-bar-fill-inner {
+    height: 100%;
+    background-color: #e1feff;
+    border-radius: 50px;
+    transition: width 0.5s ease;
+    width: 0%;
+}
+
 .health-bar {
     background-image: url('images/user-window/healthbarbackground.png');
 }
 
 .happiness-bar {
     background-image: url('images/user-window/happinessbarbackground.png');
-}
-
-.stat-bar-label {
-    font-family: 'Chango', cursive;
-    font-size: 16pt;
-    color: #ffffff;
-    text-align: center;
-    letter-spacing: 1px;
 }
 
 /* --- TIPS SECTION --- */

@@ -119,7 +119,7 @@ function checkProximity(userLat, userLon) {
     let closest = null;
     let closestDist = Infinity;
 
-    monsterLocations.forEach(monster => {
+    monsterLocations.filter(m => m.hasData === true).forEach(monster => {
         const dist = getDistance(userLat, userLon, monster.lat, monster.lon);
         if (dist < closestDist) {
             closestDist = dist;

@@ -96,6 +96,7 @@ export async function initAQI() {
         if (cached !== null) {
             monster.aqiValue = cached;
             monster.monsterType = getMonsterFromAQI(cached);
+            monster.hasData = true;
             cacheHits++;
             continue;
         }
@@ -110,10 +111,12 @@ export async function initAQI() {
         if (aqi !== null) {
             monster.aqiValue = aqi;
             monster.monsterType = getMonsterFromAQI(aqi);
+            monster.hasData = true;
             setCache(monster.id, aqi);
             console.log(`✅ ${monster.name}: AQI ${aqi} → ${monster.monsterType}`);
         } else {
-            console.log(`⚠️ ${monster.name}: no data, keeping default (${monster.monsterType})`);
+            monster.hasData = false;
+            console.log(`⚠️ ${monster.name}: no data, monster suppressed`);
         }
 
         fetchCount++;
