@@ -76,6 +76,37 @@ function stopGPS() {
     }
 }
 
+// Compass handling
+
+function startCompass() {
+    window.addEventListener('deviceorientationabsolute', updateCompass, true);
+    window.addEventListener('deviceorientation', updateCompass, true);
+}
+
+function stopCompass() {
+    window.removeEventListener('deviceorientationabsolute', updateCompass, true);
+    window.removeEventListener('deviceorientation', updateCompass, true);
+}
+
+function updateCompass(e) {
+    let heading = null;
+
+    if (e.absolute && e.alpha !== null) {
+        heading = 360 - e.alpha; // Android absolute
+    } else if (e.webkitCompassHeading !== undefined) {
+        heading = e.webkitCompassHeading; // iOS
+    } else if (e.alpha !== null) {
+        heading = 360 - e.alpha; // Android fallback
+    }
+
+    if (heading === null) return;
+
+    const arrow = document.querySelector('.ar-compass-arrow');
+    if (arrow) {
+        arrow.style.transform = `translate(-50%, -50%) rotate(${heading}deg)`;
+    }
+}
+
 function checkProximity(userLat, userLon) {
     
     state.userLat = userLat;
@@ -140,10 +171,12 @@ if (screen) {
         if (screen.classList.contains('active')) {
             startCamera();
             startGPS();
+            startCompass();
             setupARButtons();
         } else {
             stopCamera();
             stopGPS();
+            stopCompass();
         }
     });
     observer.observe(screen, { attributes: true, attributeFilter: ['class'] });

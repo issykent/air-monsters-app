@@ -139,9 +139,31 @@ function loadMonster(monsterType) {
             const scale = Math.max(0.2, Math.min(2, 5 / distance)) * 0.5;
             monsterModel.scale.set(scale, scale, scale);
             monsterModel.position.set(1.5, -3.5, -2);
+
+            monsterModel.traverse((child) => {
+                if (child.isMesh) {
+                    child.material.transparent = true;
+                    child.material.opacity = 0;
+                }
+            });
+
             threeScene.add(monsterModel);
-            console.log(`✅ 3D model loaded: ${monsterType}`);
             animate();
+
+            // 3 second delay then fade in over 2 seconds
+            setTimeout(() => {
+                const duration = 2000;
+                const start = performance.now();
+                function fadeIn() {
+                    const elapsed = performance.now() - start;
+                    const progress = Math.min(elapsed / duration, 1);
+                    monsterModel?.traverse((child) => {
+                        if (child.isMesh) child.material.opacity = progress;
+                    });
+                    if (progress < 1) requestAnimationFrame(fadeIn);
+                }
+                requestAnimationFrame(fadeIn);
+            }, 3000);
         },
         null,
         (error) => {
@@ -174,6 +196,98 @@ function stopAnimation() {
         threeScene.remove(monsterModel);
         monsterModel = null;
     }
+}
+
+// ─── Scan sequence ────────────────────────────────────────────────────────────
+function startScanSequence() {
+    const scanBar = document.getElementById('catchmode-scan-bar');
+    const overlay = document.getElementById('catchmode-overlay');
+    const exitBtn = document.getElementById('ar-catchmode-exit-btn');
+    const tapText = document.getElementById('catchmode-tap-text');
+
+    // Reset all to invisible
+    if (overlay) overlay.style.opacity = '0';
+    if (exitBtn) exitBtn.style.opacity = '0';
+    if (tapText) tapText.style.opacity = '0';
+    if (scanBar) {
+        scanBar.style.display = 'block';
+        // Restart animation by removing and re-adding
+        scanBar.style.animation = 'none';
+        requestAnimationFrame(() => {
+            scanBar.style.animation = 'scanDown 5s linear forwards';
+        });
+    }
+
+    // Fade overlay and exit btn immediately
+    requestAnimationFrame(() => {
+        if (overlay) overlay.style.opacity = '1';
+        if (exitBtn) exitBtn.style.opacity = '1';
+    });
+
+    // Tap text starts fading in after 2 second delay, takes 3s to reach full opacity
+    setTimeout(() => {
+        if (tapText) tapText.style.opacity = '1';
+    }, 2000);
+
+    // Hide scan bar after 3s
+    setTimeout(() => {
+        if (scanBar) scanBar.style.display = 'none';
+        startMotionDetection();
+    }, 5000);
+}
+
+// ─── Motion detection — fade out tap text when user moves/rotates ─────────────
+let motionListener = null;
+let lastAlpha = null;
+let motionFired = false;
+
+function startMotionDetection() {
+    if (motionFired) return;
+
+    motionListener = (e) => {
+        if (motionFired) return;
+
+        let moved = false;
+
+        // Check rotation (orientation change)
+        if (e.alpha !== null) {
+            if (lastAlpha === null) {
+                lastAlpha = e.alpha;
+            } else {
+                let diff = Math.abs(e.alpha - lastAlpha);
+                if (diff > 180) diff = 360 - diff;
+                if (diff > 3) moved = true;
+            }
+        }
+
+        // Check acceleration (movement)
+        if (e.acceleration) {
+            const { x, y, z } = e.acceleration;
+            if (Math.abs(x) > 1.5 || Math.abs(y) > 1.5 || Math.abs(z) > 1.5) {
+                moved = true;
+            }
+        }
+
+        if (moved) {
+            motionFired = true;
+            const tapText = document.getElementById('catchmode-tap-text');
+            if (tapText) tapText.style.opacity = '0';
+            stopMotionDetection();
+        }
+    };
+
+    window.addEventListener('devicemotion', motionListener, true);
+    window.addEventListener('deviceorientation', motionListener, true);
+}
+
+function stopMotionDetection() {
+    if (motionListener) {
+        window.removeEventListener('devicemotion', motionListener, true);
+        window.removeEventListener('deviceorientation', motionListener, true);
+        motionListener = null;
+    }
+    lastAlpha = null;
+    motionFired = false;
 }
 
 // ─── Render monster from state ────────────────────────────────────────────────
@@ -215,25 +329,6 @@ function setupButtons() {
         stopDeviceOrientation();
         showScreen('ar-screen');
     });
-}
-
-// ─── MutationObserver ─────────────────────────────────────────────────────────
-const screen = document.getElementById('ar-catchmode-screen');
-if (screen) {
-    const observer = new MutationObserver(() => {
-        if (screen.classList.contains('active')) {
-            startCamera();
-            renderMonster();
-            setupButtons();
-            window.addEventListener('resize', handleResize);
-        } else {
-            stopCamera();
-            stopAnimation();
-            stopDeviceOrientation();
-            window.removeEventListener('resize', handleResize);
-        }
-    });
-    observer.observe(screen, { attributes: true, attributeFilter: ['class'] });
 }
 
 // ─── CATCH CARD — add these functions to ar-catchmode.js ─────────────────────
@@ -342,8 +437,25 @@ function dismissCatchCard() {
     }
 }
 
-// ─── Call setupTapToCatch() inside your existing initCatchMode function ───────
-// Add this line after the camera and Three.js are initialised:
-// setupTapToCatch();
+// ─── MutationObserver ─────────────────────────────────────────────────────────
+const screen = document.getElementById('ar-catchmode-screen');
+if (screen) {
+    const observer = new MutationObserver(() => {
+        if (screen.classList.contains('active')) {
+            startCamera();
+            renderMonster();
+            setupButtons();
+            startScanSequence();
+            window.addEventListener('resize', handleResize);
+        } else {
+            stopCamera();
+            stopAnimation();
+            stopDeviceOrientation();
+            stopMotionDetection();
+            window.removeEventListener('resize', handleResize);
+        }
+    });
+    observer.observe(screen, { attributes: true, attributeFilter: ['class'] });
+}
 
 console.log('AR catchmode initialized');

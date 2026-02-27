@@ -390,6 +390,12 @@
         <video class="ar-camera-feed" id="ar-camera-feed" autoplay playsinline muted></video>
         <img src="css/images/ar-elements/huntmodeoverlay.png" alt="" class="ar-overlay-img">
         
+        <!-- Compass top left -->
+        <div class="ar-compass-container">
+            <img src="css/images/ar-elements/compass.png" alt="Compass" class="ar-compass">
+            <img src="css/images/ar-elements/compassarrow.png" alt="" class="ar-compass-arrow">
+        </div>
+
         <!-- Exit button top right -->
         <button class="ar-exit-btn" id="ar-exit-btn">
             <img src="css/images/ar-elements/exithuntmodebutton.png" alt="Exit hunt mode">
@@ -402,10 +408,7 @@
 
         <!-- ENTER CATCH MODE BUTTON -->
         <button class="ar-enter-catch-btn" id="enter-catch-mode-btn" style="display:none;">
-            <svg viewBox="0 0 200 200" xmlns="http://www.w3.org/2000/svg">
-                <circle cx="100" cy="100" r="90" fill="red"/>
-                <text x="100" y="115" text-anchor="middle" fill="white" font-family="Chango" font-size="24">CATCH!</text>
-            </svg>
+            <img src="css/images/ar-elements/entercatchmodebutton.png" alt="Enter Catch Mode" />
         </button>
     </div>
 
@@ -413,22 +416,23 @@
         <!-- CAMERA FEED -->
         <video class="ar-catchmode-feed" id="ar-catchmode-feed" autoplay playsinline muted></video>
 
-        <!-- CATCH MODE OVERLAY SVG (red border) -->
-        <svg class="ar-catch-overlay-svg" viewBox="0 0 390 844" xmlns="http://www.w3.org/2000/svg" preserveAspectRatio="none">
-            <rect x="5" y="5" width="380" height="834" fill="none" stroke="red" stroke-width="10"/>
-        </svg>
-
-        <!-- MONSTER SPRITE -->
+        <!-- THREE.JS CANVAS + SPRITE FALLBACK -->
         <canvas id="ar-three-canvas" class="ar-three-canvas"></canvas>
         <img src="" alt="Monster" id="ar-catchmode-monster-sprite" class="ar-catchmode-monster-sprite" style="display:none;">
 
-        <!-- WORDMARK top left -->
-        <img src="css/images/airmonsterswordmark.png" alt="Air Monsters" class="ar-catchmode-wordmark">
+        <!-- SCAN BAR -->
+        <div class="catchmode-scan-bar" id="catchmode-scan-bar"></div>
 
-        <!-- EXIT BUTTON top right -->
-        <button class="ar-catchmode-exit-btn" id="ar-catchmode-exit-btn">
-            <img src="css/images/ar-elements/exithuntmodebutton.png" alt="Exit">
+        <!-- OVERLAY (fades in over 3s) -->
+        <img src="css/images/ar-elements/catchscreenoverlay.png" alt="" class="catchmode-overlay" id="catchmode-overlay">
+
+        <!-- EXIT BUTTON (fades in over 3s) -->
+        <button class="catchmode-exit-btn" id="ar-catchmode-exit-btn">
+            <img src="css/images/ar-elements/exitcatchmodebutton2.png" alt="Exit Catch Mode">
         </button>
+
+        <!-- TAP TO CATCH TEXT (fades in over 3s, fades out on motion) -->
+        <img src="css/images/ar-elements/taptocatchtext.png" alt="" class="catchmode-tap-text" id="catchmode-tap-text">
     </div>
 
     <script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js"></script>
