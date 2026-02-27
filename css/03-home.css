@@ -176,6 +176,17 @@
 }
 
 /* 2x3 Monster Card Grid */
+.monster-count {
+    position: absolute;
+    font-family: 'Chango', cursive;
+    font-size: 30pt;
+    color: #2C3E50;
+    z-index: 10;
+    top: 9%;
+    left: 50%;
+    transform: translateX(-50%);
+}
+
 .monster-grid {
     display: grid;
     grid-template-columns: repeat(3, 1fr);
@@ -188,17 +199,31 @@
 }
 
 .monster-card {
+    position: relative;
     width: 100%;
-    display: flex;
-    align-items: center;
-    justify-content: center;
     overflow: hidden;
 }
 
-.monster-card img {
+.monster-card img:first-child {
     width: 100%;
     height: auto;
     display: block;
+}
+
+.monster-cover-card {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    z-index: 5;
+    transition: opacity 0.5s ease;
+}
+
+.monster-cover-card.unlocked {
+    opacity: 0;
+    pointer-events: none;
 }
 
 /* ── CATCH CARD SECTION ── */

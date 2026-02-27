@@ -47,7 +47,6 @@ function calculateBearing(userLat, userLon, monsterLat, monsterLon) {
 
 // ─── Device Orientation ───────────────────────────────────────────────────────
 function startDeviceOrientation() {
-    // iOS 13+ requires permission
     if (typeof DeviceOrientationEvent !== 'undefined' && typeof DeviceOrientationEvent.requestPermission === 'function') {
         DeviceOrientationEvent.requestPermission()
             .then(response => {
@@ -58,23 +57,34 @@ function startDeviceOrientation() {
             })
             .catch(err => console.log('❌ Orientation permission denied:', err));
     } else {
-        // Android / non-iOS
         // window.addEventListener('deviceorientationabsolute', handleOrientation, true);
         // window.addEventListener('deviceorientation', handleOrientation, true);
     }
 }
 
 function handleOrientation(event) {
-    // alpha = compass heading (0 = North, 90 = East etc)
     if (event.absolute && event.alpha !== null) {
         deviceHeading = (360 - event.alpha) % 360;
     } else if (event.webkitCompassHeading !== undefined) {
-        // iOS fallback
         deviceHeading = event.webkitCompassHeading;
     } else if (event.alpha !== null) {
         deviceHeading = (360 - event.alpha) % 360;
     }
     updateMonsterPosition();
+}
+
+function updateCatchmodeCompass(e) {
+    let heading = null;
+    if (e.absolute && e.alpha !== null) {
+        heading = 360 - e.alpha;
+    } else if (e.webkitCompassHeading !== undefined) {
+        heading = e.webkitCompassHeading;
+    } else if (e.alpha !== null) {
+        heading = 360 - e.alpha;
+    }
+    if (heading === null) return;
+    const arrow = document.getElementById('catchmode-compass-arrow');
+    if (arrow) arrow.style.transform = `translate(-50%, -100%) rotate(${heading}deg)`;
 }
 
 function stopDeviceOrientation() {
@@ -369,6 +379,25 @@ function onCanvasTap(event) {
     }
 }
 
+// ─── Save catch to localStorage ───────────────────────────────────────────────
+function saveCatch(monsterType) {
+    const data = JSON.parse(localStorage.getItem('airMonsters'));
+    const username = data?.currentUser;
+    if (!username) return;
+
+    if (!data.users[username].catches) {
+        data.users[username].catches = { totalCatches: 0, unlockedMonsters: [] };
+    }
+
+    data.users[username].catches.totalCatches += 1;
+    if (!data.users[username].catches.unlockedMonsters.includes(monsterType)) {
+        data.users[username].catches.unlockedMonsters.push(monsterType);
+    }
+
+    localStorage.setItem('airMonsters', JSON.stringify(data));
+    console.log(`✅ Catch saved — total: ${data.users[username].catches.totalCatches}, unlocked: ${data.users[username].catches.unlockedMonsters}`);
+}
+
 // ─── Show catch card ──────────────────────────────────────────────────────────
 function showCatchCard() {
     const monsterType = state.activeMonster?.monsterType || 'sprout';
@@ -418,11 +447,12 @@ function showCatchCard() {
     // Button handlers
     overlay.addEventListener('click', (e) => {
         if (e.target.id === 'catch-continue-btn') {
+            saveCatch(monsterType);
             dismissCatchCard();
-            // Return to hunt mode
             import('./app.js').then(m => m.showScreen('ar-screen'));
         }
         if (e.target.id === 'catch-home-btn') {
+            saveCatch(monsterType);
             dismissCatchCard();
             import('./app.js').then(m => m.showScreen('home-screen'));
         }

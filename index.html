@@ -270,23 +270,29 @@
                     <span class="monster-count" id="monster-count">0</span>
                 </div>
                 <div class="monster-grid">
-                    <div class="monster-card">
+                    <div class="monster-card" data-monster="breezy">
                         <img src="css/images/home-screen/breezy.png" alt="Breezy">
+                        <img src="css/images/home-screen/covercard.png" alt="" class="monster-cover-card">
                     </div>
-                    <div class="monster-card">
+                    <div class="monster-card" data-monster="sprout">
                         <img src="css/images/home-screen/sprout.png" alt="Sprout">
+                        <img src="css/images/home-screen/covercard.png" alt="" class="monster-cover-card">
                     </div>
-                    <div class="monster-card">
+                    <div class="monster-card" data-monster="argo">
                         <img src="css/images/home-screen/argo.png" alt="Argo">
+                        <img src="css/images/home-screen/covercard.png" alt="" class="monster-cover-card">
                     </div>
-                    <div class="monster-card">
+                    <div class="monster-card" data-monster="sili">
                         <img src="css/images/home-screen/sili.png" alt="Sili">
+                        <img src="css/images/home-screen/covercard.png" alt="" class="monster-cover-card">
                     </div>
-                    <div class="monster-card">
+                    <div class="monster-card" data-monster="rusty">
                         <img src="css/images/home-screen/rusty.png" alt="Rusty">
+                        <img src="css/images/home-screen/covercard.png" alt="" class="monster-cover-card">
                     </div>
-                    <div class="monster-card">
+                    <div class="monster-card" data-monster="smokey">
                         <img src="css/images/home-screen/smokey.png" alt="Smokey">
+                        <img src="css/images/home-screen/covercard.png" alt="" class="monster-cover-card">
                     </div>
                 </div>
             </div>
@@ -396,6 +402,9 @@
             <img src="css/images/ar-elements/compassarrow.png" alt="" class="ar-compass-arrow">
         </div>
 
+        <!-- Distance display text -->
+        <div class="ar-distance-display" id="ar-distance-display"></div>
+
         <!-- Exit button top right -->
         <button class="ar-exit-btn" id="ar-exit-btn">
             <img src="css/images/ar-elements/exithuntmodebutton.png" alt="Exit hunt mode">
@@ -415,6 +424,12 @@
     <div id="ar-catchmode-screen" class="screen">
         <!-- CAMERA FEED -->
         <video class="ar-catchmode-feed" id="ar-catchmode-feed" autoplay playsinline muted></video>
+        
+        <!-- COMPASS -->
+        <div class="ar-compass-container">
+            <img src="css/images/ar-elements/compass.png" alt="Compass" class="ar-compass">
+            <img src="css/images/ar-elements/compassarrow.png" alt="" class="ar-compass-arrow" id="catchmode-compass-arrow">
+        </div>
 
         <!-- THREE.JS CANVAS + SPRITE FALLBACK -->
         <canvas id="ar-three-canvas" class="ar-three-canvas"></canvas>

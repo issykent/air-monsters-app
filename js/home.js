@@ -91,6 +91,22 @@ function setupProfileClick() {
     }
 }
 
+function updateCollection() {
+    const data = JSON.parse(localStorage.getItem('airMonsters'));
+    const username = data?.currentUser;
+    if (!username) return;
+
+    const catches = data.users[username]?.catches || { totalCatches: 0, unlockedMonsters: [] };
+
+    const countEl = document.getElementById('monster-count');
+    if (countEl) countEl.textContent = catches.totalCatches;
+
+    catches.unlockedMonsters.forEach(monsterType => {
+        const card = document.querySelector(`.monster-card[data-monster="${monsterType}"] .monster-cover-card`);
+        if (card) card.classList.add('unlocked');
+    });
+}
+
 // Watch for home screen becoming active
 const homeScreen = document.getElementById('home-screen');
 if (homeScreen) {
@@ -99,6 +115,7 @@ if (homeScreen) {
             renderProfileAvatar();
             setupProfileClick();
             setupHuntButtons();
+            updateCollection();
         }
     });
     observer.observe(homeScreen, { attributes: true, attributeFilter: ['class'] });

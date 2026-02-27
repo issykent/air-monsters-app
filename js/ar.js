@@ -65,7 +65,7 @@ function startGPS() {
             checkProximity(userLat, userLon);
         },
         (err) => console.log('❌ GPS error:', err),
-        { enableHighAccuracy: true, maximumAge: 2000, timeout: 5000 }
+        { enableHighAccuracy: true, maximumAge: 500, timeout: 5000 }
     );
 }
 
@@ -132,9 +132,7 @@ function checkProximity(userLat, userLon) {
     nearestMonster = closest;
 
     if (distanceDisplay && closest) {
-        distanceDisplay.textContent = closestDist < 1000
-            ? `${Math.round(closestDist)}m from ${closest.name}`
-            : `${(closestDist / 1000).toFixed(1)}km from ${closest.name}`;
+        distanceDisplay.textContent = `${Math.round(closestDist)}`;
     }
 
     if (catchBtn) {

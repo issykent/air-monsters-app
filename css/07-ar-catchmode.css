@@ -235,8 +235,8 @@
 /* Exit button */
 .catchmode-exit-btn {
     position: absolute;
-    bottom: 5%;
-    left: 50%;
+    top: 6%;
+    right: 2%;
     transform: translateX(-50%);
     z-index: 40;
     background: none;
@@ -248,7 +248,7 @@
 }
 
 .catchmode-exit-btn img {
-    height: 7vh;
+    height: 6vh;
     width: auto;
     display: block;
 }
