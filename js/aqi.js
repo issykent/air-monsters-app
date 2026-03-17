@@ -2,7 +2,7 @@
 // Fetches live AQI data from Airly API for each monster location
 // Caches results in localStorage for 30 minutes to stay within rate limits
 
-import { monsterLocations, getMonsterFromAQI } from '/js/monsters.js';
+import { monsterLocations, getMonsterFromAQI } from './monsters.js';
 
 const AIRLY_API_KEY = 'dSeM6XKmuLNT4pa83gD4EKmDlh3Snv58';
 const CACHE_DURATION_MS = 30 * 60 * 1000; // 30 minutes
