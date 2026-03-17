@@ -113,9 +113,10 @@ export async function initAQI() {
             monster.monsterType = getMonsterFromAQI(aqi);
             monster.hasData = true;
             setCache(monster.id, aqi);
-            console.log(`✅ ${monster.name}: AQI ${aqi} → ${monster.monsterType}`);
         } else {
-            monster.hasData = false;
+            if (monster.hasData !== true) {
+                monster.hasData = false;
+            }
             console.log(`⚠️ ${monster.name}: no data, monster suppressed`);
         }
 
