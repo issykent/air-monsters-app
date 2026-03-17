@@ -108,6 +108,7 @@ function updateCompass(e) {
 }
 
 function checkProximity(userLat, userLon) {
+    console.log('🗺️ monsterLocations length:', monsterLocations.length);
     
     state.userLat = userLat;
     state.userLon = userLon;
