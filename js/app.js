@@ -16,7 +16,7 @@ export function showScreen(screenId) {
 
 function init() {
     console.log('App initialized');
-    initAQI().catch(err => console.error('❌ initAQI failed:', err));
+    // initAQI().catch(err => console.error('❌ initAQI failed:', err));
 }
 
 if (document.readyState === 'loading') {
