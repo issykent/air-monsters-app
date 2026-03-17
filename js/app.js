@@ -1,6 +1,6 @@
 import { state } from './config.js';
 import { monitorUserWindow } from './user-window.js';
-import { initAQI } from './aqi.js';
+// import { initAQI } from './aqi.js';
 
 monitorUserWindow();
 
