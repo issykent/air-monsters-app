@@ -51,14 +51,14 @@ function startDeviceOrientation() {
         DeviceOrientationEvent.requestPermission()
             .then(response => {
                 if (response === 'granted') {
-                    //window.addEventListener('deviceorientationabsolute', handleOrientation, true);
-                    //window.addEventListener('deviceorientation', handleOrientation, true);
+                    window.addEventListener('deviceorientationabsolute', handleOrientation, true);
+                    window.addEventListener('deviceorientation', handleOrientation, true);
                 }
             })
             .catch(err => console.log('❌ Orientation permission denied:', err));
     } else {
-        // window.addEventListener('deviceorientationabsolute', handleOrientation, true);
-        // window.addEventListener('deviceorientation', handleOrientation, true);
+        window.addEventListener('deviceorientationabsolute', handleOrientation, true);
+        window.addEventListener('deviceorientation', handleOrientation, true);
     }
 }
 
@@ -107,7 +107,7 @@ function updateMonsterPosition() {
     // 60° FOV means monster moves off screen at ~±30°
     const xOffset = Math.tan(angleDiff * Math.PI / 180) * 3;
 
-    monsterModel.position.x = 0;
+    monsterModel.position.x = xOffset;
     console.log(`📐 Heading: ${Math.round(deviceHeading)}° | Bearing: ${Math.round(monsterBearing)}° | Offset: ${xOffset.toFixed(2)}`);
 }
 
@@ -194,6 +194,7 @@ function fallbackToSprite(monsterType) {
 // ─── Animation Loop ───────────────────────────────────────────────────────────
 function animate() {
     animationFrameId = requestAnimationFrame(animate);
+    updateMonsterPosition();
     threeRenderer.render(threeScene, threeCamera);
 }
 
