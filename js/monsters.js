@@ -107,7 +107,7 @@ export const monsterLocations = [
     { id: 92, name: "Kennington Park",                lat: 51.482392, lon: -0.109274, monsterType: 'breezy' },
     { id: 93, name: "Electric Avenue",                lat: 51.462184, lon: -0.114006, monsterType: 'argo'   },
     { id: 94, name: "Test - Home", lat: 51.500825, lon: -0.067932, monsterType: 'sprout', hasData: true },
-    { id: 95, name: "Exhibition Test 1", lat: 51.47606286365614, lon: -0.07035769994084522, monsterType: 'sprout' },
-    { id: 96, name: "Exhibition Test 2", lat: 51.47563345721828, lon: -0.07048319869115938, monsterType: 'sprout' },
-    { id: 97, name: "Exhibition Test 3", lat: 51.47631111672127, lon: -0.07051645264927732, monsterType: 'sprout' },
+    { id: 95, name: "Exhibition Test 1", lat: 51.47606286365614, lon: -0.07035769994084522, monsterType: 'breezy', hasData: true },
+    { id: 96, name: "Exhibition Test 2", lat: 51.47563345721828, lon: -0.07048319869115938, monsterType: 'sprout', hasData: true },
+    { id: 97, name: "Exhibition Test 3", lat: 51.47631111672127, lon: -0.07051645264927732, monsterType: 'argo', hasData: true },
 ];
